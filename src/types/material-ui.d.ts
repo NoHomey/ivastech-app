@@ -20,12 +20,24 @@ declare module "material-ui/Button" {
     export default Button;
 }
 
+declare module "material-ui/Hidden" {
+    import Hidden = MaterialUI.Hidden;
+    export default Hidden;
+}
+
+declare module "material-ui/Grid" {
+    import Grid = MaterialUI.Grid;
+    export default Grid;
+}
+
 declare module "material-ui/styles" {
     export import MuiThemeProvider = MaterialUI.MuiThemeProvider;
 }
 
 declare namespace MaterialUI {
     type CSS = React.CSSProperties;
+
+    type ComponentProp = string | React.ReactNode;
 
     export interface AppBarProps {
         color?: "inherit" | "primary" | "accent" | "default";
@@ -50,7 +62,7 @@ declare namespace MaterialUI {
 
         color?: "inherit" | "secondary" | "accent" | "default";
 
-        component?: string | React.ReactNode;
+        component?: ComponentProp;
 
         gutterBottom?: boolean;
 
@@ -70,7 +82,7 @@ declare namespace MaterialUI {
     export interface ButtonProps {
         color?: "inherit" | "primary" | "contrast" | "accent" | "default";
 
-        component?: string | React.ReactNode;
+        component?: ComponentProp;
 
         dense?: boolean;
 
@@ -90,6 +102,72 @@ declare namespace MaterialUI {
     }
 
     export class Button extends React.Component<ButtonProps> { }
+
+    export type Breakpoint = "xs" | "sm" | "md" | "lg" | "xl";
+
+    export interface HiddenProps {
+        implementation?: "js" | "css";
+
+        lgDown?: boolean;
+
+        lgUp?: boolean;
+
+        mdDown?: boolean;
+
+        mdUp?: boolean;
+
+        only?: Breakpoint | [Breakpoint];
+
+        smDown?: boolean;
+
+        smUp?: boolean;
+
+        xlDown?: boolean;
+
+        xlUp?: boolean;
+
+        xsDown?: boolean;
+
+        xsUp?: boolean;
+    }
+
+    export class Hidden extends React.Component<HiddenProps> { }
+
+    export type BreakpointProp = boolean | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12;
+
+    export interface GridProps {
+        align?: "flex-start" | "center" | "flex-end" | "stretch";
+
+        component?: ComponentProp;
+
+        container?: boolean;
+
+        direction?: "row" | "row-reverse" | "column" | "column-reverse";
+
+        gutter?: 0 | 8 | 16 | 24 | 40;
+
+        hidden?: HiddenProps;
+
+        item?: boolean;
+
+        justify?: "flex-start" | "center" | "flex-end" | "space-between" | "space-around";
+
+        lg?: BreakpointProp;
+
+        md?: BreakpointProp;
+
+        sm?: BreakpointProp;
+
+        wrap?: "nowrap" | "wrap" | "wrap-reverse";
+
+        xl?: BreakpointProp;
+
+        xs?: BreakpointProp;
+
+        style?: CSS;
+    }
+
+    export class Grid extends React.Component<GridProps> { }
 
     export class MuiThemeProvider extends React.Component<any> { }
 }
