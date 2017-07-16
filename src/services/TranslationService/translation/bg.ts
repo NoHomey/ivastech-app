@@ -4,10 +4,10 @@ const bg: Translation = {
     login: "Вход",
     register: "Регистрация",
     language: "Език",
-    translation: {
-        en: "Английски",
-        bg: "Български"
-    }
+    translation: [
+        "Английски",
+        "Български"
+    ]
 };
 
 export default bg;

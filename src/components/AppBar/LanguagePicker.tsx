@@ -8,22 +8,24 @@ import Nullable from "./../../types/Nullable";
 type BasicSyntheticEvent = React.SyntheticEvent<HTMLElement>;
 
 class LanguagePicker extends React.Component {
-    private static languages: Language[] = [Language.BG, Language.EN];
+    private static languagesCount = 2;
+    private static languages: Uint8Array = new Uint8Array(LanguagePicker.languagesCount);
     private isLanguageMenuOpen: boolean;
     private menuAnchorElement: Nullable<EventTarget & HTMLElement>;
     private openLanguageMenu: React.EventHandler<BasicSyntheticEvent>;
     private closeLanguageMenu: () => void;
 
+    private static generateMenuItemKey(language: Language, index: number): number {
+        return (language + 1) * 10 + index + 1;
+    }
 
-    private static sortLanguages(a: Language, b: Language): number {
-        const language: Language = TranslationService.getService().getLanguage();
-        if(a === language) {
-                return -1;
+    private static sortLanguages(): void {
+        const selectedLanguage: Language = TranslationService.getService().getLanguage();
+        const indexOfSelectedLanguage: number = LanguagePicker.languages.indexOf(selectedLanguage);
+        for(let index: number = 0; index < indexOfSelectedLanguage; ++index) {
+            LanguagePicker.languages[index + 1] = LanguagePicker.languages[index];
         }
-        if(b === language) {
-            return 1;
-        }
-        return 0;
+        LanguagePicker.languages[0] = selectedLanguage;
     }
 
     private setLanguage(language: Language): void {
@@ -46,24 +48,28 @@ class LanguagePicker extends React.Component {
         this.isLanguageMenuOpen = false;
         this.openLanguageMenu = this.changeState.bind(this, true);
         this.closeLanguageMenu = this.changeState.bind(this, false, null);
+        LanguagePicker.languages[0] = Language.EN;
+        LanguagePicker.languages[1] = Language.BG;
     }
 
     render(): JSX.Element {
         const service: TranslationService = TranslationService.getService();
         if(this.isLanguageMenuOpen) {
-            LanguagePicker.languages.sort(LanguagePicker.sortLanguages);
+            LanguagePicker.sortLanguages();
         }
         return <div>
             <ContrastButton onClick={this.openLanguageMenu}>
-                {`${service.getTranslation().language}: ${service.getLanguage()}`}
+                {`${service.getTranslation().language}: ${service.getLanguageCode()}`}
             </ContrastButton>
             <Menu
                 anchorEl={this.menuAnchorElement!}
                 open={this.isLanguageMenuOpen}
                 onRequestClose={this.closeLanguageMenu}
             >
-                {LanguagePicker.languages.map<JSX.Element>((language: Language, index: number) =>
-                    <MenuItem onClick={this.setLanguage.bind(this, language)} key={index}>
+                {Array.prototype.map.call(LanguagePicker.languages, (language: Language, index: number) =>
+                    <MenuItem
+                        onClick={this.setLanguage.bind(this, language)}
+                        key={LanguagePicker.generateMenuItemKey(language, index)}>
                         {service.getTranslation().translation[language]}
                     </MenuItem>
                 )}

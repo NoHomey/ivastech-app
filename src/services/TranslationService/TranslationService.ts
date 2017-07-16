@@ -54,6 +54,10 @@ class TranslationService {
         return this.language;
     }
 
+    getLanguageCode(): "EN" | "BG" {
+        return this.isLanguageEN() ? "EN" : "BG";
+    }
+
     private isLanguage(language: Language) {
         return this.language === language;
     }
