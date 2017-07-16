@@ -36,14 +36,34 @@ class TranslationService {
     }
 
     getTranslation(): Translation {
-        return this.language === Language.EN ? en : bg;
+        return this.isLanguageEN() ? en : bg;
     }
 
-    setTranslation(language: Language): void {
-        this.language = language;
-        if(this.onChange !== null) {
-            this.onChange();
+    setLanguage(language: Language): boolean {
+        const change: boolean = language !== this.language;
+        if(change) {
+            this.language = language;
+            if(this.onChange !== null) {
+                this.onChange();
+            }
         }
+        return change;
+    }
+
+    getLanguage(): Language {
+        return this.language;
+    }
+
+    private isLanguage(language: Language) {
+        return this.language === language;
+    }
+
+    isLanguageEN(): boolean {
+        return this.isLanguage(Language.EN);
+    }
+
+    isLanguageBG(): boolean {
+        return this.isLanguage(Language.BG);
     }
 }
 

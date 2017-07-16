@@ -1,12 +1,15 @@
-import * as React from "react"
-import * as ReactDOM from "react-dom"
-import { AppContainer } from "react-hot-loader"
-import App from "./components/App"
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import { AppContainer } from "react-hot-loader";
+import { MuiThemeProvider } from "material-ui/styles";
+import App from "./components/App";
 
 function render(AppComponent: typeof App): void {
     ReactDOM.render(
         <AppContainer>
-            <AppComponent/>
+            <MuiThemeProvider>
+                <AppComponent/>
+            </MuiThemeProvider>
         </AppContainer>,
         document.getElementById("root")
     )

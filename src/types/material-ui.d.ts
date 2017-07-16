@@ -2,6 +2,7 @@
 
 declare module "material-ui/AppBar" {
     import AppBar = MaterialUI.AppBar;
+    export import AppBarProps = MaterialUI.AppBarProps;
     export default AppBar;
 }
 
@@ -17,6 +18,7 @@ declare module "material-ui/Typography" {
 
 declare module "material-ui/Button" {
     import Button = MaterialUI.Button;
+    export import ButtonProps = MaterialUI.ButtonProps;
     export default Button;
 }
 
@@ -27,7 +29,23 @@ declare module "material-ui/Hidden" {
 
 declare module "material-ui/Grid" {
     import Grid = MaterialUI.Grid;
+    export import BreakpointProp = MaterialUI.BreakpointProp;
     export default Grid;
+}
+
+declare module "material-ui/Switch" {
+    import Switch = MaterialUI.Switch;
+    import LabelSwitch = MaterialUI.LabelSwitch;
+    export {Switch, LabelSwitch};
+    export default Switch;
+}
+
+declare module "material-ui/Menu" {
+    import Menu = MaterialUI.Menu;
+    import MenuItem = MaterialUI.MenuItem;
+    import MenuList = MaterialUI.MenuList;
+    export {MenuItem, MenuList};
+    export default Menu;
 }
 
 declare module "material-ui/styles" {
@@ -38,6 +56,8 @@ declare namespace MaterialUI {
     type CSS = React.CSSProperties;
 
     type ComponentProp = string | React.ReactNode;
+
+    type BasicSyntheticEvent = React.SyntheticEvent<HTMLElement>;
 
     export interface AppBarProps {
         color?: "inherit" | "primary" | "accent" | "default";
@@ -79,7 +99,7 @@ declare namespace MaterialUI {
 
     export class Typography extends React.Component<TypographyProps> { }
 
-    export interface ButtonProps {
+    export interface MaterialUIButtonProps {
         color?: "inherit" | "primary" | "contrast" | "accent" | "default";
 
         component?: ComponentProp;
@@ -100,6 +120,8 @@ declare namespace MaterialUI {
 
         style?: CSS;
     }
+
+    export type ButtonProps = MaterialUIButtonProps & React.ButtonHTMLAttributes<HTMLButtonElement>; 
 
     export class Button extends React.Component<ButtonProps> { }
 
@@ -168,6 +190,76 @@ declare namespace MaterialUI {
     }
 
     export class Grid extends React.Component<GridProps> { }
+
+    export interface SwitchProps {
+        checked?: boolean;
+
+        checkedClassName?: string;
+
+        checkedIcon?: React.ReactNode;
+        
+        disableRipple?: boolean;
+
+        disabled?: boolean;
+
+        disabledClassName?: string;
+
+        icon?: React.ReactNode;
+
+        inputProps?: React.InputHTMLAttributes<boolean>;
+
+        name?: string;
+
+        onChange?: (event: object, checked: boolean) => void;
+
+        value?: string;
+
+        style?: CSS;
+    }
+
+    export class Switch extends React.Component<SwitchProps> { }
+
+    export type LabelProps<Props> = Props & {label?: React.ReactNode;  labelClassName?: string};
+
+    export class LabelSwitch extends React.Component<LabelProps<SwitchProps>> { }
+
+    export interface MenuProps {
+        anchorEl?: EventTarget & HTMLElement;
+
+        onEnter?: () => void;
+
+        onEntered?: () => void;
+
+        onEntering?: () => void;
+
+        onExit?: () => void;
+
+        onExited?: () => void;
+
+        onExiting?: () => void;
+
+        onRequestClose?: () => void;
+
+        open?: boolean;
+
+        transitionDuration?: number | "auto";
+
+        style?: CSS;
+    }
+
+    export class Menu extends React.Component<MenuProps> { }
+
+    export interface MenuItemProps {
+        component?: ComponentProp;
+
+        onClick?: React.EventHandler<BasicSyntheticEvent>;
+
+        selected?: boolean;
+    }
+
+    export class MenuItem extends React.Component<MenuItemProps> { }
+
+    export class MenuList extends React.Component { }
 
     export class MuiThemeProvider extends React.Component<any> { }
 }

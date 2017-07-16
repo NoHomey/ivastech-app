@@ -1,11 +1,9 @@
 import * as React from "react";
-import Button from "material-ui/Button";
+import Button, {ButtonProps} from "material-ui/Button";
 
-class ContrastButton extends React.Component {
+class ContrastButton extends React.Component<ButtonProps> {
     render(): JSX.Element {
-        return <Button color="contrast">
-            {this.props.children}
-        </Button>;
+        return <Button {...this.props} color="contrast"/>
     }
 }
 
