@@ -3,6 +3,12 @@ import Nullable from "./../types/Nullable";
 import Observable from "./../Observable"
 import TranslationService from "./../services/TranslationService/TranslationService";
 
+interface ValidationResult {
+    valid: boolean;
+
+    shouldUpdate: boolean;
+}
+
 class RequiredInputControl extends Observable {
     protected value: string;
     protected error: boolean;
@@ -60,9 +66,13 @@ class RequiredInputControl extends Observable {
         this.fieldIsRequired = this.setState.bind(this, true, InputError.required);
     }
 
-    validate(): boolean {
+    validate(): ValidationResult {
         const result = this.isValid();
-        return this.setErrorState(result !== null, result, this.value);
+        const valid = result === null;
+        return {
+            valid: valid,
+            shouldUpdate: this.setErrorState(!valid, result, this.value)
+        };
     }
 
     setInputValue(value: string): void {
@@ -84,5 +94,7 @@ class RequiredInputControl extends Observable {
         return this.error ? TranslationService.getTranslation().inputError[this.inputError!] : "";
     }
 }
+
+export {ValidationResult};
 
 export default RequiredInputControl;

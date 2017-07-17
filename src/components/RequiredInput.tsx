@@ -27,10 +27,6 @@ class RequiredInput extends React.Component<RequiredInputProps> {
         this.onChange = this.handleChange.bind(this);
     }
 
-    shouldComponentUpdate(props: RequiredInputProps): boolean {
-        return props.label !== this.props.label;
-    }
-
     componentWillUnmount(): void {
         this.props.inputControl.unsubscribe();
     }
