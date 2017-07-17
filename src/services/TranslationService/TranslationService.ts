@@ -3,13 +3,14 @@ import Language from "./Language";
 import en from "./translation/en";
 import bg from "./translation/bg";
 import Nullable from "./../../types/Nullable";
+import Observable from "./../../Observable";
 
-class TranslationService {
+class TranslationService extends Observable {
     private static service: Nullable<TranslationService> = null;
 
     private language: Language;
 
-    private onChange: Nullable<() => void> = null;
+    onTranslationChange: (onChange: () => void) => void;
 
     static getService(): TranslationService {
         if(TranslationService.service === null) {
@@ -24,15 +25,9 @@ class TranslationService {
     }
 
     constructor() {
+        super();
+        this.onTranslationChange = this.onChange;
         this.language = Language.EN;
-    }
-
-    onTranslationChange(onChange: () => void): void {
-        this.onChange = onChange;
-    }
-
-    unsubscribe(): void {
-        this.onChange = null;
     }
 
     getTranslation(): Translation {
@@ -43,9 +38,7 @@ class TranslationService {
         const change: boolean = language !== this.language;
         if(change) {
             this.language = language;
-            if(this.onChange !== null) {
-                this.onChange();
-            }
+            this.emitChange();
         }
         return change;
     }

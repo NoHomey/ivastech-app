@@ -48,6 +48,38 @@ declare module "material-ui/Menu" {
     export default Menu;
 }
 
+declare module "material-ui/Dialog" {
+    import Dialog = MaterialUI.Dialog;
+    import DialogTitle = MaterialUI.DialogTitle;
+    import DialogContent = MaterialUI.DialogContent;
+    import DialogContentText = MaterialUI.DialogContentText;
+    import DialogActions = MaterialUI.DialogActions;
+    export {DialogTitle, DialogContent, DialogContentText, DialogActions};
+    export default Dialog;
+}
+
+declare module "material-ui/Form/FormControl" {
+    import FormControl = MaterialUI.FormControl;
+    export default FormControl;
+}
+
+declare module "material-ui/Input/InputLabel" {
+    import InputLable = MaterialUI.InputLable;
+    export default InputLable;
+}
+
+declare module "material-ui/Input" {
+    import Input = MaterialUI.Input;
+    export import MaterialUIInputProps = MaterialUI.MaterialUIInputProps;
+    export import InputProps = MaterialUI.InputProps;
+    export default Input;
+}
+
+declare module "material-ui/Form/FormHelperText" {
+    import FormHelperText = MaterialUI.FormHelperText;
+    export default FormHelperText;
+}
+
 declare module "material-ui/styles" {
     export import MuiThemeProvider = MaterialUI.MuiThemeProvider;
 }
@@ -261,5 +293,137 @@ declare namespace MaterialUI {
 
     export class MenuList extends React.Component { }
 
-    export class MuiThemeProvider extends React.Component<any> { }
+    export interface DialogProps {
+        enterTransitionDuration?: boolean;
+
+        fullScreen?: boolean;
+
+        ignoreBackdropClick?: boolean;
+
+        ignoreEscapeKeyUp?: boolean;
+
+        leaveTransitionDuration?: boolean;
+
+        maxWidth?: "xs" | "sm" | "md";
+        
+        onBackdropClick?: () => void;
+
+        onEnter?: () => void;
+
+        onEntered?: () => void;
+
+        onEntering?: () => void;
+
+        onEscapeKeyUp?: () => void;
+
+        onExit?: () => void;
+
+        onExited?: () => void;
+
+        onExiting?: () => void;
+
+        onRequestClose?: () => void;
+
+        open?: boolean;
+
+        transition?: React.SFC<any> | React.ReactElement<any>;
+
+        style?: CSS;
+    }
+
+    export class Dialog extends React.Component<DialogProps> { }
+
+    export class DialogActions extends React.Component { }
+
+    export class DialogContent extends React.Component { }
+
+    export class DialogContentText extends React.Component { }
+
+    export interface DialogTitleProps {
+        disableTypography?: boolean;
+    }
+
+    export class DialogTitle extends React.Component<DialogTitleProps> { }
+
+    export interface FormControlProps {
+        disabled?: boolean;
+
+        error?: boolean;
+
+        fullWidth?: boolean;
+
+        marginForm?: boolean;
+
+        required?: boolean;
+
+        style?: CSS;
+    }
+
+    export class FormControl extends React.Component<FormControlProps> { }
+
+    export interface InputLableProps {
+        disableAnimation?: boolean;
+
+        disabled?: boolean;
+
+        error?: boolean;
+
+        focused?: boolean;
+
+        required?: boolean;
+
+        shrink?: boolean;
+
+        htmlFor?: string;
+
+        style?: boolean;
+    }
+
+    export class InputLable extends React.Component<InputLableProps> { }
+
+    export interface MaterialUIInputProps {
+        component?: ComponentProp;
+
+        defaultValue?: string | number;
+
+        disableUnderline?: boolean;
+
+        error?: boolean;
+
+        fullWidth?: boolean;
+
+        id?: string;
+
+        inputProps?: React.InputHTMLAttributes<HTMLInputElement>;
+
+        inputRef?: (input: HTMLInputElement) => void;
+
+        multile?: boolean;
+
+        rows?: string | number;
+
+        rowsMax?: string | number;
+
+        type?: "button" | "checkbox" | "color" | "date" | "datetime-local" | "email" | "file" | "hidden" | "image" | "number" | "password" | "radio" | "range";
+
+        value?: string | number;
+
+        style?: CSS;
+    }
+
+    export type InputProps = MaterialUIInputProps & React.InputHTMLAttributes<HTMLInputElement>;
+
+    export class Input extends React.Component<InputProps> { }
+
+    export interface FormHelperTextProps {
+        disabled?: boolean;
+
+        error?: boolean;
+
+        style?: CSS;
+    }
+
+    export class FormHelperText extends React.Component<FormHelperTextProps> { }
+
+    export class MuiThemeProvider extends React.Component { }
 }

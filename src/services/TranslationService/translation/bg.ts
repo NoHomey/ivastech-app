@@ -7,7 +7,15 @@ const bg: Translation = {
     translation: [
         "Английски",
         "Български"
-    ]
+    ],
+    inputError: [
+        "Това поле е задължително",
+        "Невалидна електорнна поща"
+    ],
+    inputLabel: {
+        email: "Електронна поща",
+        password: "Парола"
+    }
 };
 
 export default bg;
