@@ -3,6 +3,10 @@ import EmailInputControl from "./EmailInputControl";
 import InputControl from "./InputControl";
 
 class InputFormControl {
+    private static resetInputControl(inputControl: RequiredInputControl): void {
+        inputControl.reset();
+    }
+
     public controls: InputControl[];
     public inputControls: RequiredInputControl[];
 
@@ -14,6 +18,10 @@ class InputFormControl {
                 case InputControl.password: return new RequiredInputControl();
             }
         });
+    }
+
+    reset(): void {
+        this.inputControls.forEach(InputFormControl.resetInputControl);
     }
 
     getInputControl(inputControl: InputControl): RequiredInputControl {

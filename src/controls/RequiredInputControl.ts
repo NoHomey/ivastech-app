@@ -59,11 +59,15 @@ class RequiredInputControl extends Observable {
 
     constructor() {
         super();
+        this.fieldIsValid = this.setState.bind(this, false, null);
+        this.fieldIsRequired = this.setState.bind(this, true, InputError.required);
+        this.reset();
+    }
+
+    reset(): void {
         this.value = "";
         this.error = false;
         this.inputError = null;
-        this.fieldIsValid = this.setState.bind(this, false, null);
-        this.fieldIsRequired = this.setState.bind(this, true, InputError.required);
     }
 
     validate(): ValidationResult {

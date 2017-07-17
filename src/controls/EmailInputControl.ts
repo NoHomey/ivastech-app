@@ -5,12 +5,11 @@ import Nullable from "./../types/Nullable";
 class EmailInputControl extends RequiredInputControl {
     private static emailRegex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    private validationTimeout: Nullable<number>;
-
     private static isValidateEmail(value: string): boolean {
         return EmailInputControl.emailRegex.test(value);
     }
 
+    private validationTimeout: Nullable<number>;
     private fieldIsInvalidEmail: (value: string) => void;
     private validateEmail: () => void;
 
