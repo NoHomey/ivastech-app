@@ -23,7 +23,7 @@ class ConfirmPasswordInputControl extends RequiredInputControlWithValidator {
     }
 
     acquire(): void {
-        this.passwordControl = this.formControl!.getInputControl(InputControl.password);
+        this.passwordControl = this.formControl!.getInputControl(InputControl.password) as RequiredInputControl;
         this.passwordControl.onChange(this.validateField);
     }
 

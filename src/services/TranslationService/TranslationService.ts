@@ -24,10 +24,19 @@ class TranslationService extends Observable {
         return TranslationService.getService().getTranslation();
     }
 
+    private isLanguage(language: Language) {
+        return this.language === language;
+    }
+
+    isLanguageEN: () => boolean;
+    isLanguageBG: () => boolean;
+
     constructor() {
         super();
         this.onTranslationChange = this.onChange;
         this.language = Language.EN;
+        this.isLanguageEN = this.isLanguage.bind(this, Language.EN);
+        this.isLanguageBG = this.isLanguage.bind(this, Language.BG);
     }
 
     getTranslation(): Translation {
@@ -49,18 +58,6 @@ class TranslationService extends Observable {
 
     getLanguageCode(): "EN" | "BG" {
         return this.isLanguageEN() ? "EN" : "BG";
-    }
-
-    private isLanguage(language: Language) {
-        return this.language === language;
-    }
-
-    isLanguageEN(): boolean {
-        return this.isLanguage(Language.EN);
-    }
-
-    isLanguageBG(): boolean {
-        return this.isLanguage(Language.BG);
     }
 }
 

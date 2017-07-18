@@ -1,5 +1,6 @@
 import * as React from "react";
 import Dialog, {DialogContent, DialogActions} from "material-ui/Dialog";
+import RequiredInputControl from "./../controls/RequiredInputControl";
 import EmailInputControl from "./../controls/EmailInputControl";
 import ConfirmPasswordInputControl from "./../controls/ConfirmPasswordInputControl";
 import InputFormControl from "./../controls/InputFormControl";
@@ -60,7 +61,7 @@ class DialogTrigger extends React.Component<DialogTriggerProps> {
             case InputControl.email:
                 return <EmailInput inputControl={control as EmailInputControl}/>;
             case InputControl.password:
-                return <PasswordInput inputControl={control}/>;
+                return <PasswordInput inputControl={control as RequiredInputControl}/>;
             case InputControl.confirmPassword:
                 return <ConfirmPasswordInput
                     inputControl={control as ConfirmPasswordInputControl}/>;
