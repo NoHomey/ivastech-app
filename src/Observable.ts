@@ -1,24 +1,27 @@
-import Nullable from "./types/Nullable";
-
 class Observable {
-    private observer: Nullable<() => void> = null;
+    private static observe(this: null, observer: () => void) {
+        observer();
+    }
+
+    private observers: Array<() => void>;
 
     constructor() {
-        this.observer = null;
+        this.observers = [];
     }
 
     onChange(observer: () => void): void {
-        this.observer = observer;
+        this.observers.push(observer);
     }
 
-    unsubscribe(): void {
-        this.observer = null;
+    unsubscribe(observer: () => void): void {
+        const index = this.observers.indexOf(observer);
+        if(index >= 0) {
+            this.observers.splice(index, 1);
+        }
     }
 
     protected emitChange(): void {
-        if(this.observer !== null) {
-            this.observer();
-        }
+        this.observers.forEach(Observable.observe);
     }
 }
 

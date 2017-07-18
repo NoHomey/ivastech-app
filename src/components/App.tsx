@@ -3,13 +3,16 @@ import AppBar from "./AppBar/AppBar";
 import TranslationService from "./../services/TranslationService/TranslationService";
 
 class App extends React.Component {
+    private onTranslationChange: () => void;
+
     constructor() {
         super();
-        TranslationService.getService().onTranslationChange(this.forceUpdate.bind(this));
+        this.onTranslationChange = this.forceUpdate.bind(this);
+        TranslationService.getService().onTranslationChange(this.onTranslationChange);
     }
 
     componentWillUnmount(): void {
-        TranslationService.getService().unsubscribe();
+        TranslationService.getService().unsubscribe(this.onTranslationChange);
     }
 
     render(): JSX.Element {

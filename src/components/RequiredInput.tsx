@@ -15,6 +15,7 @@ export interface RequiredInputProps extends InputControlProp, InputProps {
 }
 
 class RequiredInput extends React.Component<RequiredInputProps> {
+    private onInputControlChange: () => void;
     private onChange: React.EventHandler<React.SyntheticEvent<HTMLInputElement>>;
 
     private handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
@@ -23,12 +24,13 @@ class RequiredInput extends React.Component<RequiredInputProps> {
 
     constructor(props: RequiredInputProps) {
         super(props);
-        this.props.inputControl.onChange(this.forceUpdate.bind(this));
+        this.onInputControlChange = this.forceUpdate.bind(this);
+        this.props.inputControl.onChange(this.onInputControlChange);
         this.onChange = this.handleChange.bind(this);
     }
 
     componentWillUnmount(): void {
-        this.props.inputControl.unsubscribe();
+        this.props.inputControl.unsubscribe(this.onInputControlChange);
     }
     
     render(): JSX.Element {

@@ -79,6 +79,7 @@ class DialogTrigger extends React.Component<DialogTriggerProps> {
             this.closeDialog,
             this.formIsInvalidAction.bind(this)
         );
+        this.inputFormControl.acquire();
     }
 
     componentWillUnmount(): void {

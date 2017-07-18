@@ -22,6 +22,13 @@ class InputFormControl {
         });
     }
 
+    acquire(): void {
+        const index = this.controls.indexOf(InputControl.confirmPassword);
+        if(index >= 0) {
+            (this.inputControls[index] as ConfirmPasswordInputControl).acquire();
+        }
+    }
+
     release(): void {
         const index = this.controls.indexOf(InputControl.confirmPassword);
         if(index >= 0) {
