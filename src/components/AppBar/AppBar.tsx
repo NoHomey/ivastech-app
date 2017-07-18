@@ -21,7 +21,6 @@ const style: {AppBar: CSS, Toolbar: CSS} = {
 
 class IvasTechBar extends React.Component {
     render(): JSX.Element {
-        console.log("render IvasTechBar");
         return <AppBar position="static" style={style.AppBar}>
             <Toolbar style={style.Toolbar}>
                 <LayoutContainer justify="space-between">

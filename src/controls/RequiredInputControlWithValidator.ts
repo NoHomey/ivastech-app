@@ -7,7 +7,7 @@ abstract class RequiredInputControlWithValidator extends RequiredInputControl {
 
     private validatorError: InputError;
     private validationTimeout: Nullable<number>;
-    private fieldIsInvalid: (value: string) => void;
+    protected fieldIsInvalid: (value: string) => void;
     protected validateField: () => void;
 
     private validateValue(): void {
@@ -41,7 +41,7 @@ abstract class RequiredInputControlWithValidator extends RequiredInputControl {
             return this.fieldIsValid(value);
         }
         this.setState(this.error, this.inputError, value);
-        this.validationTimeout = setTimeout(this.validateField, 1000);
+        this.validationTimeout = setTimeout(this.validateField, 800);
     }
 
     isValid(): Nullable<InputError> {

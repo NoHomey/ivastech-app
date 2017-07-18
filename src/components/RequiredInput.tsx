@@ -36,14 +36,12 @@ class RequiredInput extends React.Component<RequiredInputProps> {
     render(): JSX.Element {
         const {label, inputControl: control, ...others} = this.props;
         const error: boolean = control.isError();
-        return <FormControl required error={error} marginForm>
-            <InputLabel required error={error} htmlFor={label}>
+        return <FormControl required error={error} margin="normal">
+            <InputLabel htmlFor={label}>
                 {TranslationService.getTranslation().inputLabel[label]}
             </InputLabel>
-            <Input
-                required error={error} id={label} {...others}
-                value={control.getValue()} onChange={this.onChange}/>
-            <FormHelperText error={error}>
+            <Input id={label} {...others} value={control.getValue()} onChange={this.onChange}/>
+            <FormHelperText>
                 {control.getInputErrorMessage()}
             </FormHelperText>
         </FormControl>

@@ -352,7 +352,7 @@ declare namespace MaterialUI {
 
         fullWidth?: boolean;
 
-        marginForm?: boolean;
+        margin?: "none" | "dense" | "normal";
 
         required?: boolean;
 
