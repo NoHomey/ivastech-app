@@ -38,7 +38,9 @@ class RequiredInput extends React.Component<RequiredInputProps> {
             <InputLabel required error={error} htmlFor={label}>
                 {TranslationService.getTranslation().inputLabel[label]}
             </InputLabel>
-            <Input required error={error} id={label} onChange={this.onChange} {...others}/>
+            <Input
+                required error={error} id={label} {...others}
+                value={control.getValue()} onChange={this.onChange}/>
             <FormHelperText error={error}>
                 {control.getInputErrorMessage()}
             </FormHelperText>
