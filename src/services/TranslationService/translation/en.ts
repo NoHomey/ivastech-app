@@ -10,11 +10,13 @@ const en: Translation = {
     ],
     inputError: [
         "This field is required",
-        "Invalid email address"
+        "Invalid email address",
+        "Passwords do not match"
     ],
     inputLabel: {
         email: "Email address",
-        password: "Password"
+        password: "Password",
+        confirmPassword: "Confirm Password"
     }
 };
 

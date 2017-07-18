@@ -1,9 +1,11 @@
 import * as React from "react";
 import Dialog, {DialogContent, DialogActions} from "material-ui/Dialog";
 import EmailInputControl from "./../controls/EmailInputControl";
+import ConfirmPasswordInputControl from "./../controls/ConfirmPasswordInputControl";
 import InputFormControl from "./../controls/InputFormControl";
 import InputControl from "./../controls/InputControl";
 import PasswordInput from "./PasswordInput";
+import ConfirmPasswordInput from "./ConfirmPasswordInput";
 import EmailInput from "./EmailInput";
 import LayoutContainer from "./LayoutContainer";
 import LayoutItem from "./LayoutItem";
@@ -59,6 +61,9 @@ class DialogTrigger extends React.Component<DialogTriggerProps> {
                 return <EmailInput inputControl={control as EmailInputControl}/>;
             case InputControl.password:
                 return <PasswordInput inputControl={control}/>;
+            case InputControl.confirmPassword:
+                return <ConfirmPasswordInput
+                    inputControl={control as ConfirmPasswordInputControl}/>;
         }
     }
 
@@ -74,6 +79,10 @@ class DialogTrigger extends React.Component<DialogTriggerProps> {
             this.closeDialog,
             this.formIsInvalidAction.bind(this)
         );
+    }
+
+    componentWillUnmount(): void {
+        this.inputFormControl.release();
     }
 
     render(): JSX.Element {

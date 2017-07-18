@@ -7,6 +7,7 @@ interface Translation {
     inputLabel: {
         email: string;
         password: string;
+        confirmPassword: string;
         [index: string]: string;
     }
 }

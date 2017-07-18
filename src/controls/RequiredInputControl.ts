@@ -53,10 +53,6 @@ class RequiredInputControl extends Observable {
         }
     }
 
-    protected isValid(): Nullable<InputError> {
-        return this.value.length > 0 ? null : InputError.required;
-    }
-
     constructor() {
         super();
         this.fieldIsValid = this.setState.bind(this, false, null);
@@ -68,6 +64,10 @@ class RequiredInputControl extends Observable {
         this.value = "";
         this.error = false;
         this.inputError = null;
+    }
+
+    isValid(): Nullable<InputError> {
+        return this.value.length > 0 ? null : InputError.required;
     }
 
     validate(): ValidationResult {

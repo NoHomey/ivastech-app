@@ -1,6 +1,7 @@
 enum InputControl {
     email,
-    password
+    password,
+    confirmPassword
 }
 
 export default InputControl;

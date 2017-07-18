@@ -1,5 +1,6 @@
 import RequiredInputControl, {ValidationResult} from "./RequiredInputControl";
 import EmailInputControl from "./EmailInputControl";
+import ConfirmPasswordInputControl from "./ConfirmPasswordInputControl";
 import InputControl from "./InputControl";
 
 class InputFormControl {
@@ -16,8 +17,16 @@ class InputFormControl {
             switch(inputControl) {
                 case InputControl.email: return new EmailInputControl();
                 case InputControl.password: return new RequiredInputControl();
+                case InputControl.confirmPassword: return new ConfirmPasswordInputControl(this)
             }
         });
+    }
+
+    release(): void {
+        const index = this.controls.indexOf(InputControl.confirmPassword);
+        if(index >= 0) {
+            (this.inputControls[index] as ConfirmPasswordInputControl).release();
+        }
     }
 
     reset(): void {
