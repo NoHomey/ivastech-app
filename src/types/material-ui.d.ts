@@ -80,6 +80,59 @@ declare module "material-ui/Form/FormHelperText" {
     export default FormHelperText;
 }
 
+declare module "material-ui/Divider" {
+    import Divider = MaterialUI.Divider;
+    export default Divider;
+}
+
+declare module "material-ui/Paper" {
+    import Paper = MaterialUI.Paper;
+    export default Paper;
+}
+
+declare module "material-ui/transitions/Collapse" {
+    import Collapse = MaterialUI.Collapse;
+    export default Collapse;
+}
+
+declare module "material-ui/transitions/Fade" {
+    import Fade = MaterialUI.Fade;
+    export default Fade;
+}
+
+declare module "material-ui/transitions/Slide" {
+    import Slide = MaterialUI.Slide;
+    export default Slide;
+}
+
+declare module "material-ui/Drawer" {
+    import Drawer = MaterialUI.Drawer;
+    export default Drawer;
+}
+
+declare module "material-ui/List" {
+    import List = MaterialUI.List;
+    export import ListItem = MaterialUI.ListItem;
+    export import ListAvatar = MaterialUI.ListAvatar;
+    export import ListItemIcon = MaterialUI.ListItemIcon;
+    export import ListItemSecondaryAction = MaterialUI.ListItemSecondaryAction;
+    export import ListItemText = MaterialUI.ListItemText;
+    export import ListSubheader = MaterialUI.ListSubheader;
+    export default List;
+}
+
+declare module "material-ui/SvgIcon" {
+    import SvgIcon = MaterialUI.SvgIcon;
+    export import SvgIconProps = MaterialUI.SvgIconProps;
+    export default SvgIcon;
+}
+
+declare module "material-ui/IconButton" {
+    import IconButton = MaterialUI.IconButton;
+    export import IconButtonProps = MaterialUI.IconButton;
+    export default IconButton;
+}
+
 declare module "material-ui/styles" {
     export import MuiThemeProvider = MaterialUI.MuiThemeProvider;
 }
@@ -424,6 +477,202 @@ declare namespace MaterialUI {
     }
 
     export class FormHelperText extends React.Component<FormHelperTextProps> { }
+
+    export interface DividerProps {
+        absolute?: boolean;
+
+        inset?: boolean;
+
+        light?: boolean;
+    }
+
+    export class Divider extends React.Component<DividerProps> { }
+
+    export type ElevationProp = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 | 24;
+
+    export interface PaperProps {
+        component?: ComponentProp;
+
+        elevation?: ElevationProp;
+
+        suqare?: boolean;
+
+        style?: CSS;
+    }
+    
+    export class Paper extends React.Component<PaperProps> { }
+
+    export interface CollapseProps {
+        in?: boolean;
+
+        onEnter?: () => void;
+
+        onEntered?: () => void;
+
+        onEntering?: () => void;
+
+        onExit?: () => void;
+
+        onExited?: () => void;
+
+        onExiting?: () => void;
+
+        transitionDuration?: number | string;
+    }
+
+    export class Collapse extends React.Component<CollapseProps> { }
+
+    export interface FadeProps {
+        enterTransitionDuration?: number;
+
+        in?: boolean;
+
+        leaveTransitionDuration?: number;
+
+        onEnter?: () => void;
+
+        onEntered?: () => void;
+
+        onEntering?: () => void;
+
+        onExit?: () => void;
+
+        onExited?: () => void;
+
+        onExiting?: () => void;
+    }
+
+    export class Fade extends React.Component<FadeProps> { }
+
+    export interface SlideProps extends FadeProps {
+        direction?: "left" | "right" | "up" | "down";
+
+        offset?: string;
+    }
+
+    export class Slide extends React.Component<SlideProps> { }
+
+    export interface DrawerProps {
+        SlideProps?: SlideProps;
+
+        anchor?: "left" | "right" | "top" | "bottom";
+
+        docked?: boolean;
+
+        elevation?: ElevationProp;
+
+        enterTransitionDuration?: number;
+
+        leaveTransitionDuration?: number;
+
+        onRequestClose?: () => void;
+
+        open?: boolean;
+
+        style?: CSS;
+    }
+
+    export class Drawer extends React.Component<DrawerProps> { }
+
+    export interface ListProps {
+        component?: ComponentProp;
+
+        dense?: boolean;
+
+        disablePadding?: boolean;
+
+        rootRef?: (component: HTMLElement | React.ReactNode) => void;
+
+        subheader?: React.ReactElement<any>;
+
+        style?: CSS;
+    }
+
+    export class List extends React.Component<ListProps> { }
+
+    export interface MaterialUIListItemProps {
+        button?: boolean;
+
+        component?: ComponentProp;
+
+        dense?: boolean;
+
+        disableGutters?: boolean;
+
+        divider?: boolean;
+    }
+
+    type ListItemProps = MaterialUIListItemProps & React.HTMLAttributes<HTMLDivElement>;
+
+    export class ListItem extends React.Component<ListItemProps> { }
+
+    export  interface ListAvatarProps {
+        style?: CSS;
+    }
+
+    export class ListAvatar extends React.Component<ListAvatarProps> { }
+
+    export  interface ListItemIconProps {
+        style?: CSS;
+    }
+
+    export class ListItemIcon extends React.Component<ListItemIconProps> { }
+
+    export  interface ListItemSecondaryActionProps {
+        style?: CSS;
+    }
+
+    export class ListItemSecondaryAction extends React.Component<ListItemSecondaryActionProps> { }
+
+    export interface ListItemTextProps {
+        disableTypography?: boolean;
+
+        inset?: boolean;
+
+        primary?: React.ReactNode;
+
+        secondary?: React.ReactNode;
+
+        style?: CSS;
+    }
+
+    export class ListItemText extends React.Component<ListItemTextProps> { }
+
+    export interface ListSubheaderProps {
+        color?: "default" | "primary" | "inherit";
+
+        inset?: boolean;
+
+        style?: CSS;
+    }
+
+    export class ListSubheader extends React.Component<ListSubheaderProps> { }
+
+    export interface SvgIconProps {
+        titleAccess?: string;
+
+        viewBox?: string;
+
+        style?: CSS;
+    }
+
+    export class SvgIcon extends React.Component<SvgIconProps> { }
+
+    export interface MaterialUIIconButtonProps {
+        color?: "default" | "inherit" | "contrast" | "accent";
+
+        disableRipple?: boolean;
+
+        disabled?: boolean;
+
+        rootRef?: (component: HTMLElement) => void;
+
+        style?: CSS;
+    }
+
+    export type IconButtonProps = MaterialUIIconButtonProps & React.InputHTMLAttributes<HTMLButtonElement>;
+
+    export class IconButton extends React.Component<IconButtonProps> { }
 
     export class MuiThemeProvider extends React.Component { }
 }

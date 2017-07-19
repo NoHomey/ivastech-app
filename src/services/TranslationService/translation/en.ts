@@ -17,6 +17,19 @@ const en: Translation = {
         email: "Email address",
         password: "Password",
         confirmPassword: "Confirm Password"
+    },
+    sideNav: {
+        order: [
+            "Order",
+            "Orders",
+            "Templates",
+            "Addresses"
+        ],
+        user: [
+            "Change Password",
+            "Cahnge Email",
+            "Logout"
+        ]
     }
 };
 

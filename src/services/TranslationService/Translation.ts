@@ -9,6 +9,10 @@ interface Translation {
         password: string;
         confirmPassword: string;
         [index: string]: string;
+    },
+    sideNav: {
+        order: string[],
+        user: string[]
     }
 }
 

@@ -39,13 +39,15 @@ class DialogTrigger extends React.Component<DialogTriggerProps> {
     private isDialogOpen: boolean;
     private inputFormControl: InputFormControl;
     
-    private setDialogState(open: boolean): void {
+    private setDialogState(open: boolean, forceUpdate: boolean): void {
         if(this.isDialogOpen !== open) {
             this.isDialogOpen = open;
             if(!open) {
                 this.inputFormControl.reset();
             }
-            this.forceUpdate();
+            if(forceUpdate) {
+                this.forceUpdate();
+            }
         }
     }
 
@@ -71,13 +73,13 @@ class DialogTrigger extends React.Component<DialogTriggerProps> {
     constructor(props: DialogTriggerProps) {
         super(props);
         this.isDialogOpen = false;
-        this.openDialog = this.setDialogState.bind(this, true);
-        this.closeDialog = this.setDialogState.bind(this, false);
+        this.openDialog = this.setDialogState.bind(this, true, true);
+        this.closeDialog = this.setDialogState.bind(this, false, true);
         this.inputFormControl = new InputFormControl(props.inputControls);
         this.takeAction = props.action.bind(
             null,
             this.inputFormControl,
-            this.closeDialog,
+            this.setDialogState.bind(this, false),
             this.formIsInvalidAction.bind(this)
         );
         this.inputFormControl.acquire();

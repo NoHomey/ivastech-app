@@ -9,12 +9,12 @@ import TranslationService from "./../../services/TranslationService/TranslationS
 class RegisterButton extends React.Component {
     private static action(this: null,
         formControl: InputFormControl,
-        closeDialog: () => void,
+        closeDialog: (forceUpdate: boolean) => void,
         formIsInvalid: (shouldUpdate: boolean) => void): void {
             
         const validationResult = formControl.validate();
         if(validationResult.valid) {
-            closeDialog();
+            closeDialog(true);
         } else {
             formIsInvalid(validationResult.shouldUpdate);
         }

@@ -5,16 +5,18 @@ import DialogTrigger from "./../DialogTrigger";
 import InputFormControl from "./../../controls/InputFormControl";
 import InputControl from "./../../controls/InputControl";
 import TranslationService from "./../../services/TranslationService/TranslationService";
+import UserService from "./../../services/UserService";
 
 class LoginButton extends React.Component {
     private static action(this: null,
         formControl: InputFormControl,
-        closeDialog: () => void,
+        closeDialog: (forceUpdate: boolean) => void,
         formIsInvalid: (shouldUpdate: boolean) => void): void {
             
         const validationResult = formControl.validate();
         if(validationResult.valid) {
-            closeDialog();
+            closeDialog(false);
+            UserService.getService().login();
         } else {
             formIsInvalid(validationResult.shouldUpdate);
         }
