@@ -27,7 +27,7 @@ const en: Translation = {
         ],
         user: [
             "Change Password",
-            "Cahnge Email",
+            "Change Email",
             "Logout"
         ]
     }
