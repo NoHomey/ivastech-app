@@ -14,6 +14,7 @@ import Logo from "./Logo";
 import TranslationService from "./../../services/TranslationService/TranslationService";
 import SideNavService from "./../../services/SideNavService";
 import UserService from "./../../services/UserService";
+import bindMethod from "./../../decorators/bindMethod";
 
 const style: {list: React.CSSProperties} = {
     list: {
@@ -48,7 +49,6 @@ class SideNav extends React.Component {
     ];
 
     private sideNavService: SideNavService;
-    private reRender: () => void;
 
     private static renderListItem(this: {texts: string[]}, item:  SideNavListItem, index: number): JSX.Element {
         return <ListItem button key={index} dense onClick={item.onClick}>
@@ -65,9 +65,11 @@ class SideNav extends React.Component {
         </List>;
     }
 
+    @bindMethod("forceUpdate")
+    private reRender(): void { }
+
     constructor() {
         super();
-        this.reRender = this.forceUpdate.bind(this);
         this.sideNavService = SideNavService.getService();
         this.sideNavService.onChange(this.reRender);
     }

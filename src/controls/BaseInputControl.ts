@@ -2,6 +2,7 @@ import InputError from "./InputError";
 import Nullable from "./../types/Nullable";
 import Observable from "./../Observable"
 import TranslationService from "./../services/TranslationService/TranslationService";
+import bindAllArgumentsExceptOneOf from "./../decorators/bindAllArgumentsExceptOneOf";
 
 interface ValidationResult {
     valid: boolean;
@@ -13,7 +14,6 @@ class BaseInputControl extends Observable {
     protected value: string;
     protected error: boolean;
     protected inputError: Nullable<InputError>;
-    protected fieldIsValid: (value: string) => void;
 
     private setValue(value: string): boolean {
         if(this.value !== value) {
@@ -51,9 +51,11 @@ class BaseInputControl extends Observable {
         }
     }
 
+    @bindAllArgumentsExceptOneOf("setState", [false, null])
+    protected fieldIsValid(value: string): void { }
+
     constructor() {
         super();
-        this.fieldIsValid = this.setState.bind(this, false, null);
         this.reset();
     }
 

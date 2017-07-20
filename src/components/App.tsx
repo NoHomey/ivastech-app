@@ -4,17 +4,19 @@ import LayoutContainer from "./LayoutContainer";
 import LayoutItem from "./LayoutItem";
 import TranslationService from "./../services/TranslationService/TranslationService";
 import UserService from "./../services/UserService";
+import bindMethod from "./../decorators/bindMethod";
 
 /*const style: {appContainer: React.CSSProperties} = {
     appContainer: {marginLeft: 200}
 };*/
 
 class App extends React.Component {
-    private reRender: () => void;
+
+    @bindMethod("forceUpdate")
+    private reRender(): void { }
 
     constructor() {
         super();
-        this.reRender = this.forceUpdate.bind(this);
         TranslationService.getService().onTranslationChange(this.reRender);
         UserService.getService().onChange(this.reRender);
     }

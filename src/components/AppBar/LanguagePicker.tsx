@@ -4,6 +4,8 @@ import Menu, {MenuItem} from "material-ui/Menu";
 import TranslationService from "./../../services/TranslationService/TranslationService";
 import Language from "./../../services/TranslationService/Language";
 import Nullable from "./../../types/Nullable";
+import bindAllArgumentsOf from "./../../decorators/bindAllArgumentsOf";
+import bindAllArgumentsExceptOneOf from "./../../decorators/bindAllArgumentsExceptOneOf";
 
 type BasicSyntheticEvent = React.SyntheticEvent<HTMLElement>;
 
@@ -12,8 +14,8 @@ class LanguagePicker extends React.Component {
     private static languages: Uint8Array = new Uint8Array(LanguagePicker.languagesCount);
     private isLanguageMenuOpen: boolean;
     private menuAnchorElement: Nullable<EventTarget & HTMLElement>;
-    private openLanguageMenu: React.EventHandler<BasicSyntheticEvent>;
-    private closeLanguageMenu: () => void;
+    
+    private languageSetters: Array<() => void>;
 
     private static generateMenuItemKey(language: Language, index: number): number {
         return (language + 1) * 10 + index + 1;
@@ -36,20 +38,33 @@ class LanguagePicker extends React.Component {
         }
     }
 
+    @bindAllArgumentsOf("setLanguage", [Language.BG])
+    private setLanguageToBG(): void { }
+
+    @bindAllArgumentsOf("setLanguage", [Language.EN])
+    private setLanguageToEN(): void { }
+
     private changeState(open: boolean, event: Nullable<BasicSyntheticEvent>): void {
         this.menuAnchorElement = event ? event.currentTarget : null;
         this.isLanguageMenuOpen = open;
         this.forceUpdate();
     }
 
+    @bindAllArgumentsExceptOneOf("changeState", [true])
+    private openLanguageMenu(event: Nullable<BasicSyntheticEvent>): void { }
+
+    @bindAllArgumentsOf("changeState", [false, null])
+    private closeLanguageMenu(): void { }
+
     constructor() {
         super();
         this.menuAnchorElement = null;
         this.isLanguageMenuOpen = false;
-        this.openLanguageMenu = this.changeState.bind(this, true);
-        this.closeLanguageMenu = this.changeState.bind(this, false, null);
         LanguagePicker.languages[0] = Language.EN;
         LanguagePicker.languages[1] = Language.BG;
+        this.languageSetters = new Array<() => void>(LanguagePicker.languagesCount);
+        this.languageSetters[Language.EN] = this.setLanguageToEN;
+        this.languageSetters[Language.BG] = this.setLanguageToBG;
     }
 
     render(): JSX.Element {
@@ -68,7 +83,7 @@ class LanguagePicker extends React.Component {
             >
                 {Array.prototype.map.call(LanguagePicker.languages, (language: Language, index: number) =>
                     <MenuItem
-                        onClick={this.setLanguage.bind(this, language)}
+                        onClick={this.languageSetters[language]}
                         key={LanguagePicker.generateMenuItemKey(language, index)}>
                         {service.getTranslation().translation[language]}
                     </MenuItem>

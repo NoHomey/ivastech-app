@@ -1,7 +1,8 @@
 import InputError from "./InputError";
 import RequiredInputControl from "./RequiredInputControl";
 import Nullable from "./../types/Nullable";
-import bind from "bind-decorator";
+import bind from "./../decorators/bind";
+import {bindAllArgumentsExceptOneOfFunction} from "./../decorators/bindAllArgumentsExceptOneOf";
 
 abstract class RequiredInputControlWithValidator extends RequiredInputControl {
     protected abstract validator(value: string): boolean;
@@ -26,7 +27,9 @@ abstract class RequiredInputControlWithValidator extends RequiredInputControl {
         super();
         this.validatorError = validatorError;
         this.validationTimeout = null;
-        this.fieldIsInvalid = this.setState.bind(this, true, validatorError);
+        this.fieldIsInvalid = bindAllArgumentsExceptOneOfFunction(
+            this.setState, this, [true, validatorError]
+        ) as (value: string) => void;
     }
 
     setInputValue(value: string): void {

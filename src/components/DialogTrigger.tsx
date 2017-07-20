@@ -10,6 +10,9 @@ import ConfirmPasswordInput from "./ConfirmPasswordInput";
 import EmailInput from "./EmailInput";
 import LayoutContainer from "./LayoutContainer";
 import LayoutItem from "./LayoutItem";
+import bind from "./../decorators/bind";
+import bindAllArgumentsOf, {bindAllArgumentsOfFunction} from "./../decorators/bindAllArgumentsOf";
+import bindAllArgumentsEcxceptOneOf from "./../decorators/bindAllArgumentsExceptOneOf";
 
 interface OnClickProp {
     onClick: () => void;
@@ -23,7 +26,7 @@ interface DialogTriggerProps {
     inputControls: InputControl[];
     action: (
         formControl: InputFormControl,
-        closeDialog: () => void,
+        closeDialog: (shouldUpdate: boolean) => void,
         formIsInvalid: (shouldUpdate: boolean) => void
     ) => void
 }
@@ -33,9 +36,6 @@ class DialogTrigger extends React.Component<DialogTriggerProps> {
         return (inputControl + 1) * 10 + index + 1;
     }
 
-    private openDialog: () => void;
-    private closeDialog: () => void;
-    private takeAction: () => void;
     private isDialogOpen: boolean;
     private inputFormControl: InputFormControl;
     
@@ -51,7 +51,8 @@ class DialogTrigger extends React.Component<DialogTriggerProps> {
         }
     }
 
-    private formIsInvalidAction(shouldUpdate: boolean): void {
+    @bind
+    private invalidFormAction(shouldUpdate: boolean): void {
         if(shouldUpdate) {
             this.forceUpdate();
         }
@@ -70,18 +71,24 @@ class DialogTrigger extends React.Component<DialogTriggerProps> {
         }
     }
 
+    @bindAllArgumentsOf("setDialogState", [true, true])
+    private openDialog(): void { }
+
+    @bindAllArgumentsOf("setDialogState", [false, true])
+    private closeDialog(): void { }
+
+    @bindAllArgumentsEcxceptOneOf("setDialogState", [false])
+    private closeDialogAction(forceUpdate: boolean): void { }
+
+    @bind
+    takeAction(): void {
+        this.props.action(this.inputFormControl, this.closeDialogAction, this.invalidFormAction);
+    }
+
     constructor(props: DialogTriggerProps) {
         super(props);
         this.isDialogOpen = false;
-        this.openDialog = this.setDialogState.bind(this, true, true);
-        this.closeDialog = this.setDialogState.bind(this, false, true);
         this.inputFormControl = new InputFormControl(props.inputControls);
-        this.takeAction = props.action.bind(
-            null,
-            this.inputFormControl,
-            this.setDialogState.bind(this, false),
-            this.formIsInvalidAction.bind(this)
-        );
         this.inputFormControl.acquire();
     }
 

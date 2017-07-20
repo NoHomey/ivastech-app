@@ -4,7 +4,7 @@ import RequiredInputControl from "./RequiredInputControl";
 import InputFormControl from "./InputFormControl";
 import InputControl from "./InputControl";
 import Nullable from "./../types/Nullable";
-import bind from "bind-decorator";
+import bind from "./../decorators/bind";
 
 class ConfirmPasswordInputControl extends RequiredInputControlWithValidator {
     private formControl: Nullable<InputFormControl>;

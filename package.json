@@ -20,7 +20,6 @@
   },
   "homepage": "https://github.com/NoHomey/ivastech-app#readme",
   "dependencies": {
-    "bind-decorator": "^1.0.11",
     "material-ui": "^1.0.0-alpha.22",
     "material-ui-icons": "^1.0.0-alpha.19",
     "react": "^15.6.1",

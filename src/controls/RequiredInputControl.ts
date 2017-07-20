@@ -1,13 +1,16 @@
 import BaseInputControl from "./BaseInputControl";
 import InputError from "./InputError";
 import Nullable from "./../types/Nullable";
+import bindAllArgumentsExceptOneOf from "./../decorators/bindAllArgumentsExceptOneOf";
+
 
 class RequiredInputControl extends BaseInputControl {
-    protected fieldIsRequired: (value: string) => void;
+
+    @bindAllArgumentsExceptOneOf("setState", [true, InputError.required])
+    protected fieldIsRequired(value: string): void { }
 
     constructor() {
         super();
-        this.fieldIsRequired = this.setState.bind(this, true, InputError.required);
     }
 
     isValid(): Nullable<InputError> {
