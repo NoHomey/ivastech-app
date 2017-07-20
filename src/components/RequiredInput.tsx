@@ -5,6 +5,7 @@ import FormControl from "material-ui/Form/FormControl";
 import FormHelperText from "material-ui/Form/FormHelperText";
 import RequiredInputControl from "./../controls/RequiredInputControl";
 import TranslationService from "./../services/TranslationService/TranslationService";
+import bind from "bind-decorator";
 
 export interface InputControlProp {
     inputControl: RequiredInputControl;
@@ -16,9 +17,9 @@ export interface RequiredInputProps extends InputControlProp, InputProps {
 
 class RequiredInput extends React.Component<RequiredInputProps> {
     private onInputControlChange: () => void;
-    private onChange: React.EventHandler<React.SyntheticEvent<HTMLInputElement>>;
-
-    private handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
+    
+    @bind
+    private onChange(event: React.SyntheticEvent<HTMLInputElement>) {
         this.props.inputControl.setInputValue(event.currentTarget.value);
     }
 
@@ -26,7 +27,6 @@ class RequiredInput extends React.Component<RequiredInputProps> {
         super(props);
         this.onInputControlChange = this.forceUpdate.bind(this);
         this.props.inputControl.onChange(this.onInputControlChange);
-        this.onChange = this.handleChange.bind(this);
     }
 
     componentWillUnmount(): void {

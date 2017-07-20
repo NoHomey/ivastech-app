@@ -4,11 +4,11 @@ import RequiredInputControl from "./RequiredInputControl";
 import InputFormControl from "./InputFormControl";
 import InputControl from "./InputControl";
 import Nullable from "./../types/Nullable";
+import bind from "bind-decorator";
 
 class ConfirmPasswordInputControl extends RequiredInputControlWithValidator {
     private formControl: Nullable<InputFormControl>;
     private passwordControl: Nullable<RequiredInputControl>;
-    private onPasswordChange: () => void;
 
     protected validator(value: string): boolean {
         if(this.passwordControl!.isValid() !== null) {
@@ -17,7 +17,8 @@ class ConfirmPasswordInputControl extends RequiredInputControlWithValidator {
         return this.passwordControl!.getValue() === value;
     }
 
-    private handlePasswordChange(): void {
+    @bind
+    private onPasswordChange(): void {
         if(this.value.length > 0) {
             (this.validator(this.value)
                 ? this.fieldIsValid
@@ -30,7 +31,6 @@ class ConfirmPasswordInputControl extends RequiredInputControlWithValidator {
         super(InputError.confirmPassword);
         this.formControl = formControl;
         this.passwordControl = null;
-        this.onPasswordChange = this.handlePasswordChange.bind(this);
     }
 
     acquire(): void {

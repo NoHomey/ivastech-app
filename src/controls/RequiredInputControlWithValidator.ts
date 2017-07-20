@@ -1,6 +1,7 @@
 import InputError from "./InputError";
 import RequiredInputControl from "./RequiredInputControl";
 import Nullable from "./../types/Nullable";
+import bind from "bind-decorator";
 
 abstract class RequiredInputControlWithValidator extends RequiredInputControl {
     protected abstract validator(value: string): boolean;
@@ -8,8 +9,8 @@ abstract class RequiredInputControlWithValidator extends RequiredInputControl {
     private validatorError: InputError;
     private validationTimeout: Nullable<number>;
     protected fieldIsInvalid: (value: string) => void;
-    protected validateField: () => void;
 
+    @bind
     private validateValue(): void {
         this.validationTimeout = null;
         if(this.value.length === 0) {
@@ -26,7 +27,6 @@ abstract class RequiredInputControlWithValidator extends RequiredInputControl {
         this.validatorError = validatorError;
         this.validationTimeout = null;
         this.fieldIsInvalid = this.setState.bind(this, true, validatorError);
-        this.validateField = this.validateValue.bind(this);
     }
 
     setInputValue(value: string): void {
@@ -41,7 +41,7 @@ abstract class RequiredInputControlWithValidator extends RequiredInputControl {
             return this.fieldIsValid(value);
         }
         this.setState(this.error, this.inputError, value);
-        this.validationTimeout = setTimeout(this.validateField, 800);
+        this.validationTimeout = setTimeout(this.validateValue, 800);
     }
 
     isValid(): Nullable<InputError> {
