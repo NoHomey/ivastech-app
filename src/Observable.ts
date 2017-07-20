@@ -3,21 +3,18 @@ class Observable {
         observer();
     }
 
-    private observers: Array<() => void>;
+    private observers: Set<() => void>;
 
     constructor() {
-        this.observers = [];
+        this.observers = new Set();
     }
 
     onChange(observer: () => void): void {
-        this.observers.push(observer);
+        this.observers.add(observer);
     }
 
     unsubscribe(observer: () => void): void {
-        const index = this.observers.indexOf(observer);
-        if(index >= 0) {
-            this.observers.splice(index, 1);
-        }
+        this.observers.delete(observer);
     }
 
     protected emitChange(): void {
