@@ -20,10 +20,6 @@ class RegisterButton extends React.Component {
         }
     }
 
-    constructor() {
-        super();
-    }
-
     render(): JSX.Element {
         const {register} = TranslationService.getTranslation();
         return <DialogTrigger

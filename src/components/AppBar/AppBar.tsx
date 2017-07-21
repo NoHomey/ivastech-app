@@ -24,7 +24,7 @@ const style: {AppBar: CSS, Toolbar: CSS} = {
 
 class IvasTechBar extends React.Component {
     render(): JSX.Element {
-        if(UserService.getService().isUserLogedIn()) {
+        if(UserService.getService().isUserLoggedIn()) {
             return <div>
                 <AppBar position="static" style={style.AppBar}>
                     <Toolbar style={style.Toolbar}>

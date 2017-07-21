@@ -4,7 +4,7 @@ import Observable from "./../Observable";
 class UserService extends Observable {
     private static service: Nullable<UserService> = null;
 
-    private isLogedIn: boolean;
+    private isLoggedIn: boolean;
 
     static getService(): UserService {
         if(UserService.service === null) {
@@ -15,25 +15,25 @@ class UserService extends Observable {
 
     constructor() {
         super();
-        this.isLogedIn = false;
+        this.isLoggedIn = false;
     }
 
     login(): void {
-        if(!this.isLogedIn) {
-            this.isLogedIn = true;
+        if(!this.isLoggedIn) {
+            this.isLoggedIn = true;
             this.emitChange();
         }
     }
 
     logout(): void {
-        if(this.isLogedIn) {
-            this.isLogedIn = false;
+        if(this.isLoggedIn) {
+            this.isLoggedIn = false;
             this.emitChange();
         }
     }
 
-    isUserLogedIn(): boolean {
-        return this.isLogedIn;
+    isUserLoggedIn(): boolean {
+        return this.isLoggedIn;
     }
 }
 
