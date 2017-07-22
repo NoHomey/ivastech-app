@@ -15,7 +15,7 @@ interface LayoutContainerProps {
     style?: React.CSSProperties;
 }
 
-class LayoutContainer extends React.PureComponent<LayoutContainerProps> {
+class LayoutContainer extends React.Component<LayoutContainerProps> {
     static defaultProps: LayoutContainerProps = {
         align: "center",
         gutter: 0,

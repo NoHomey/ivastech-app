@@ -13,12 +13,12 @@ interface LayoutItemProps {
     xs?: BreakpointProp;
 
     style?: React.CSSProperties;
+
+    children: React.ReactNode
 }
 
-class LayoutItem extends React.PureComponent<LayoutItemProps> {
-    render(): JSX.Element {
-        return <Grid item {...this.props}/>;
-    }
+function LayoutItem(props: LayoutItemProps): JSX.Element {
+    return <Grid item {...props}/>;
 }
 
 export default LayoutItem;

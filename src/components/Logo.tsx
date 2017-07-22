@@ -6,7 +6,7 @@ interface LogoProps {
 }
 
 class Logo extends React.Component<LogoProps> {
-    static defaultProps: LogoProps = {color: "inherit"};
+    public static defaultProps: LogoProps = {color: "inherit"};
 
     shouldComponentUpdate(): boolean {
         return false;
