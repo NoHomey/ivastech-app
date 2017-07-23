@@ -17,8 +17,12 @@ class ReactiveProperty<Type> {
     set value(value: Type) {
         if(this.internalValue !== value) {
             this.internalValue = value;
-            this.observers.forEach(observe);
+            this.notify();
         }
+    }
+
+    notify(): void {
+        this.observers.forEach(observe);
     }
     
     set(value: Type): void {

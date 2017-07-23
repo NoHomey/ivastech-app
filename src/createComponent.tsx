@@ -1,34 +1,11 @@
 import * as React from "react";
 import Translations from "./translations/Translations";
 import ForceUpdatable from "./reactives/ForceUpdatable";
-import language from "./reactives/language";
-import languageMenu from "./reactives/languageMenu";
-import open from "./reactives/openReactive";
-import emailInput from "./reactives/emailInput";
-import emailError from "./reactives/emailError";
+import store, {StoreKey} from "./store";
 
-const store = {
-    language: language(),
-    languageMenu: languageMenu(),
-    sideNav: open(),
-    loginDialog: open(),
-    registerDialog: open(),
-    emailInput: emailInput(),
-    emailError: emailError()
-};
-
-type ReactivesKey = "language" | "languageMenu" | "sideNav" | "loginDialog"
-    | "registerDialog" | "emailInput" | "emailError";
+type ReactivesKey = StoreKey;
 
 const {getTranslations} = store.language.actions;
-
-store.language.reactivity.subscribe({
-    forceUpdate: store.languageMenu.actions.ensureClose
-});
-
-store.emailError.externals!.emailInputValue(
-    store.emailInput.actions.value
-);
 
 interface HOCProps {
     component: (reactives: any, translation: Translations, props: any) => JSX.Element;
@@ -39,7 +16,6 @@ interface HOCProps {
 
     props: any;
 }
-
 
 const reactivityActions = {
     subscribe: function(this: ForceUpdatable, key: ReactivesKey): void {
@@ -96,5 +72,7 @@ function createComponent<Actions = {}, Props = {}>(
         return <HOC reactives={reactives} component={component} props={props} shouldUpdate={shouldUpdate}/>;
     }
 }
+
+export {ReactivesKey};
 
 export default createComponent;

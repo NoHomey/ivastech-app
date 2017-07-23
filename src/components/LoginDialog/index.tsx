@@ -1,13 +1,14 @@
 import * as React from "react";
 import Dialog, {DialogContent, DialogActions} from "material-ui/Dialog";
-import LayoutContainer from "./LayoutContainer";
-import LayoutItem from "./LayoutItem";
-import Button from "material-ui/Button";
-import createComponent from "./../createComponent"
-import Translations from "./../translations/Translations";
-import {OpenActions} from "./../reactives/openReactive";
+import LayoutContainer from "./../LayoutContainer";
+import LayoutItem from "./../LayoutItem";
+import LoginButton from "./LoginButton";
+import createComponent from "./../../createComponent"
+import Translations from "./../../translations/Translations";
+import {OpenActions} from "./../../reactives/openReactive";
 
-import EmailInput from "./EmailInput";
+import EmailInput from "./../EmailInput";
+import PasswordInput from "./../PasswordInput";
 
 interface Actions {
     loginDialog: OpenActions;
@@ -23,10 +24,13 @@ const LoginDialog = createComponent<Actions>(
                     <LayoutItem>
                         <EmailInput/>
                     </LayoutItem>
+                    <LayoutItem>
+                        <PasswordInput/>
+                    </LayoutItem>
                 </LayoutContainer>
             </DialogContent>
             <DialogActions>
-                <Button color="primary">{translations.login}</Button>
+                <LoginButton/>
             </DialogActions>
         </Dialog>;
     }, "loginDialog"

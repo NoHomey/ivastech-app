@@ -9,7 +9,7 @@ interface InputEvent {
     currentTarget: EventCurrentTarget;
 }
 
-interface EmailInput {
+interface TextInput {
     onChange: (event: InputEvent) => void;
 
     reset: () => void;
@@ -17,9 +17,9 @@ interface EmailInput {
     value: () => string;
 }
 
-type EmailInputActions = Actions<EmailInput>;
+type TextInputActions = Actions<TextInput>;
 
-function emailInput(): Reactivity<EmailInput> {
+function textInput(): Reactivity<TextInput> {
     const input = new ReactiveProperty<string>("");
 
     return reactivityCreator(input, {
@@ -37,6 +37,6 @@ function emailInput(): Reactivity<EmailInput> {
     });
 }
 
-export {EmailInputActions};
+export {TextInputActions};
 
-export default emailInput;
+export default textInput;

@@ -2,9 +2,9 @@ import Reactivity from "./Reactivity";
 import reactivityCreator from "./reactivityCreator";
 import ReactiveProperty from "./ReactiveProperty";
 import Actions from "./../reactives/Actions";
-import InputErrors from "./InputErrors";
+import InputErrors from "./../validators/InputErrors";
 
-interface EmailError {
+interface TextInputError {
     onBlur: () => void;
 
     isInvalid: () => boolean;
@@ -19,30 +19,19 @@ interface EmailError {
 }
 
 interface Externals {
-    emailInputValue: (value: () => string) => void;
+    inputValue: (value: () => string) => void;
 }
 
-type EmailErrorActions = Actions<EmailError>;
+type TextInputErrorActions = Actions<TextInputError>;
 
-function emailError(): Reactivity<EmailError, Externals> {
+function textInputError(validate: (value: () => string) => InputErrors): Reactivity<TextInputError, Externals> {
     const error = new ReactiveProperty<InputErrors>(InputErrors.valid);
 
-    let emailValue: () => string;
-
-    const emailRegex: RegExp = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    let inputValue: () => string;
 
     return reactivityCreator(error, {
         onBlur: function(): void {
-            const value = emailValue();
-            if(value.length === 0) {
-                error.value = InputErrors.required;
-                return;
-            }
-            if(emailRegex.test(value)) {
-                error.value = InputErrors.valid;
-            } else {
-                error.value = InputErrors.email;
-            }
+            error.value = validate(inputValue);
         },
 
         isInvalid: function(): boolean {
@@ -66,12 +55,12 @@ function emailError(): Reactivity<EmailError, Externals> {
         }
     },
     {
-        emailInputValue: function(value: () => string): void {
-            emailValue = value;
+        inputValue: function(value: () => string): void {
+            inputValue = value;
         }
     });
 }
 
-export {EmailErrorActions};
+export {TextInputErrorActions};
 
-export default emailError;
+export default textInputError;
