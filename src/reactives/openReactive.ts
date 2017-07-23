@@ -3,7 +3,7 @@ import reactivityCreator from "./reactivityCreator";
 import ReactiveProperty from "./ReactiveProperty";
 import Actions from "./../reactives/Actions";
 
-interface SideNav {
+interface Open {
     open: () => void;
 
     close: () => void;
@@ -13,30 +13,30 @@ interface SideNav {
     isOpen: () => boolean;
 }
 
-type SideNavActions = Actions<SideNav>;
+type OpenActions = Actions<Open>;
 
-function sideNav(): Reactivity<SideNav> {
-    const open = new ReactiveProperty<boolean>(false);
+function open(): Reactivity<Open> {
+    const isOpen = new ReactiveProperty<boolean>(false);
 
-    return reactivityCreator(open, {
+    return reactivityCreator(isOpen, {
         open: function(): void {
-            open.value = true;
+            isOpen.value = true;
         },
 
         close: function(): void {
-            open.value = false;
+            isOpen.value = false;
         },
 
         ensureClose: function(): void {
-            open.set(false);
+            isOpen.set(false);
         },
 
         isOpen: function(): boolean {
-            return open.value;
+            return isOpen.value;
         }
     });
 }
 
-export {SideNavActions};
+export {OpenActions};
 
-export default sideNav;
+export default open;

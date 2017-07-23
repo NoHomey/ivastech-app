@@ -2,10 +2,10 @@ import * as React from "react";
 import IconButton from "material-ui/IconButton";
 import MenuIcon from "material-ui-icons/Menu";
 import createComponent from "./../createComponent";
-import {SideNavActions} from "./../reactives/sideNav";
+import {OpenActions} from "./../reactives/openReactive";
 
 interface Actions {
-    sideNav: SideNavActions;
+    sideNav: OpenActions;
 }
 
 const MenuButton = createComponent<Actions>(

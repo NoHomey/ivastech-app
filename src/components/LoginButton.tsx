@@ -2,10 +2,19 @@ import * as React from "react";
 import Button from "material-ui/Button";
 import createComponent from "./../createComponent";
 import Translations from "./../translations/Translations";
+import {OpenActions} from "./../reactives/openReactive";
 
-const LoginButton = createComponent(
-    function(actions: {}, translations: Translations): JSX.Element {
-        return <Button color="contrast">{translations.login}</Button>;
+interface Actions {
+    loginDialog: OpenActions;
+}
+
+const LoginButton = createComponent<Actions>(
+    function(actions: Actions, translations: Translations): JSX.Element {
+        return <Button
+            color="contrast"
+            onClick={actions.loginDialog.actions.open}>
+                {translations.login}
+        </Button>;
     }
 );
 

@@ -14,10 +14,10 @@ import Toolbar from "material-ui/Toolbar";
 import Logo from "./Logo";
 import createComponent from "./../createComponent";
 import Translations from "./../translations/Translations";
-import {SideNavActions} from "./../reactives/sideNav";
+import {OpenActions} from "./../reactives/openReactive";
 
 interface Actions {
-    sideNav: SideNavActions;
+    sideNav: OpenActions;
 }
 
 interface SideNavItemProps {

@@ -3,15 +3,17 @@ import Translations from "./translations/Translations";
 import ForceUpdatable from "./reactives/ForceUpdatable";
 import language from "./reactives/language";
 import languageMenu from "./reactives/languageMenu";
-import sideNav from "./reactives/sideNav";
+import open from "./reactives/openReactive";
 
 const store = {
     language: language(),
     languageMenu: languageMenu(),
-    sideNav: sideNav()
+    sideNav: open(),
+    loginDialog: open(),
+    registerDialog: open()
 };
 
-type ReactivesKey = "language" | "languageMenu" | "sideNav";
+type ReactivesKey = "language" | "languageMenu" | "sideNav" | "loginDialog" | "registerDialog";
 
 const {getTranslations} = store.language.actions;
 
