@@ -6,6 +6,12 @@ interface Translations {
         EN: string;
         BG: string;
     };
+    inputErrors: string[];
+    inputLabel: {
+        email: string;
+        password: string;
+        confirmPassword: string;
+    },
     order: string;
     orders: string;
     templates: string;

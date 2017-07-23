@@ -9,7 +9,8 @@ interface Actions {
 }
 
 const MenuButton = createComponent<Actions>(
-    function(actions: Actions): JSX.Element {
+    function(actions: 
+        Actions): JSX.Element {
         return <IconButton color="contrast" onClick={actions.sideNav.actions.open}>
             <MenuIcon/>
         </IconButton>;

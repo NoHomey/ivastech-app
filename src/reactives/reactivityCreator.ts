@@ -2,7 +2,11 @@ import Reactivity from "./Reactivity";
 import ReactiveProperty from "./ReactiveProperty";
 import ForceUpdatable from "./ForceUpdatable";
 
-function reactivityCreator<Type, Actions>(property: ReactiveProperty<Type>, actions: Actions): Reactivity<Actions> {
+function reactivityCreator<Type, Actions, Externals = {}>(
+        property: ReactiveProperty<Type>,
+        actions: Actions,
+        externals?: Externals
+): Reactivity<Actions, Externals> {
     return {
         actions: actions,
 
@@ -14,7 +18,9 @@ function reactivityCreator<Type, Actions>(property: ReactiveProperty<Type>, acti
             unsubscribe: function(observer: ForceUpdatable): void {
                 property.unsubscribe(observer);
             }
-        }
+        },
+
+        externals: externals
     };
 }
 

@@ -4,22 +4,31 @@ import ForceUpdatable from "./reactives/ForceUpdatable";
 import language from "./reactives/language";
 import languageMenu from "./reactives/languageMenu";
 import open from "./reactives/openReactive";
+import emailInput from "./reactives/emailInput";
+import emailError from "./reactives/emailError";
 
 const store = {
     language: language(),
     languageMenu: languageMenu(),
     sideNav: open(),
     loginDialog: open(),
-    registerDialog: open()
+    registerDialog: open(),
+    emailInput: emailInput(),
+    emailError: emailError()
 };
 
-type ReactivesKey = "language" | "languageMenu" | "sideNav" | "loginDialog" | "registerDialog";
+type ReactivesKey = "language" | "languageMenu" | "sideNav" | "loginDialog"
+    | "registerDialog" | "emailInput" | "emailError";
 
 const {getTranslations} = store.language.actions;
 
 store.language.reactivity.subscribe({
     forceUpdate: store.languageMenu.actions.ensureClose
 });
+
+store.emailError.externals!.emailInputValue(
+    store.emailInput.actions.value
+);
 
 interface HOCProps {
     component: (reactives: any, translation: Translations, props: any) => JSX.Element;

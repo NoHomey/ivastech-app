@@ -7,6 +7,8 @@ import createComponent from "./../createComponent"
 import Translations from "./../translations/Translations";
 import {OpenActions} from "./../reactives/openReactive";
 
+import EmailInput from "./EmailInput";
+
 interface Actions {
     loginDialog: OpenActions;
 }
@@ -18,7 +20,9 @@ const LoginDialog = createComponent<Actions>(
                 onRequestClose={actions.loginDialog.actions.close}>
             <DialogContent>
                 <LayoutContainer direction="column">
-                    <LayoutItem>{translations.login}</LayoutItem>
+                    <LayoutItem>
+                        <EmailInput/>
+                    </LayoutItem>
                 </LayoutContainer>
             </DialogContent>
             <DialogActions>

@@ -8,6 +8,17 @@ const en: Translations = {
         EN: "English",
         BG: "Bulgarian"
     },
+    inputErrors: [
+        "",
+        "This field is required",
+        "Invalid email address",
+        "Passwords do not match"
+    ],
+    inputLabel: {
+        email: "Email address",
+        password: "Password",
+        confirmPassword: "Confirm Password"
+    },
     order: "Order",
     orders: "Orders",
     templates: "Templates",

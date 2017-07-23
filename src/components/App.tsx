@@ -1,4 +1,3 @@
-
 import * as React from "react";
 import AppBar from "./AppBar";
 import LanguagePickerMenu from "./LanguagePickerMenu";
