@@ -1,6 +1,7 @@
 import Reactivity from "./Reactivity";
 import reactivityCreator from "./reactivityCreator";
 import ReactiveProperty from "./ReactiveProperty";
+import Actions from "./../reactives/Actions";
 import Nullable from "./../types/Nullable";
 
 type EventCurrentTarget = EventTarget & HTMLElement;
@@ -9,7 +10,7 @@ interface OpenEvent {
     currentTarget: EventCurrentTarget;
 }
 
-interface LanguageMenuReactivity {
+interface LanguageMenu {
     open: (event: OpenEvent) => void;
 
     close: () => void;
@@ -21,7 +22,9 @@ interface LanguageMenuReactivity {
     getMenuAnchorElement: () => Nullable<EventCurrentTarget>;
 }
 
-function languageMenu(): Reactivity<LanguageMenuReactivity> {
+type LanguageMenuActions = Actions<LanguageMenu>;
+
+function languageMenu(): Reactivity<LanguageMenu> {
     const open = new ReactiveProperty<boolean>(false);
 
     let menuAnchorElement: Nullable<EventCurrentTarget> = null;
@@ -52,6 +55,6 @@ function languageMenu(): Reactivity<LanguageMenuReactivity> {
     });
 }
 
-export {LanguageMenuReactivity};
+export {LanguageMenuActions};
 
 export default languageMenu;

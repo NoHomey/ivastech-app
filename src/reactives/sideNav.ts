@@ -1,8 +1,9 @@
 import Reactivity from "./Reactivity";
 import reactivityCreator from "./reactivityCreator";
 import ReactiveProperty from "./ReactiveProperty";
+import Actions from "./../reactives/Actions";
 
-interface SideNavReactivity {
+interface SideNav {
     open: () => void;
 
     close: () => void;
@@ -12,7 +13,9 @@ interface SideNavReactivity {
     isOpen: () => boolean;
 }
 
-function sideNav(): Reactivity<SideNavReactivity> {
+type SideNavActions = Actions<SideNav>;
+
+function sideNav(): Reactivity<SideNav> {
     const open = new ReactiveProperty<boolean>(false);
 
     return reactivityCreator(open, {
@@ -34,6 +37,6 @@ function sideNav(): Reactivity<SideNavReactivity> {
     });
 }
 
-export {SideNavReactivity};
+export {SideNavActions};
 
 export default sideNav;

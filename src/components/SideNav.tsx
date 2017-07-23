@@ -14,11 +14,10 @@ import Toolbar from "material-ui/Toolbar";
 import Logo from "./Logo";
 import createComponent from "./../createComponent";
 import Translations from "./../translations/Translations";
-import Actions from "./../reactives/Actions";
-import {SideNavReactivity} from "./../reactives/sideNav";
+import {SideNavActions} from "./../reactives/sideNav";
 
-interface SideNavActions {
-    sideNav: Actions<SideNavReactivity>;
+interface Actions {
+    sideNav: SideNavActions;
 }
 
 interface SideNavItemProps {
@@ -43,8 +42,8 @@ function SideNavItem(props: SideNavItemProps): JSX.Element {
         </ListItem>;
 }
 
-const SideNav = createComponent<SideNavActions>(
-    function(actions: SideNavActions, translations: Translations): JSX.Element {
+const SideNav = createComponent<Actions>(
+    function(actions: Actions, translations: Translations): JSX.Element {
         return <Drawer
             anchor="left" docked={false}
             open={actions.sideNav.actions.isOpen()}

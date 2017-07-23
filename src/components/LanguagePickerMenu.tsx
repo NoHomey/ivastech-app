@@ -2,18 +2,17 @@ import * as React from "react";
 import Menu, {MenuItem} from "material-ui/Menu";
 import createComponent from "./../createComponent";
 import Translations from "./../translations/Translations";
-import Actions from "./../reactives/Actions";
-import {LanguageReactivity} from "./../reactives/language";
-import {LanguageMenuReactivity} from "./../reactives/languageMenu";
+import {LanguageActions} from "./../reactives/language";
+import {LanguageMenuActions} from "./../reactives/languageMenu";
 
-interface LanguagePickerButtonActions {
-    language: Actions<LanguageReactivity>;
+interface Actions {
+    language: LanguageActions;
 
-    languageMenu: Actions<LanguageMenuReactivity>;
+    languageMenu: LanguageMenuActions;
 }
 
-const LanguagePickerMenu = createComponent<LanguagePickerButtonActions>(
-    function(actions: LanguagePickerButtonActions, translations: Translations): JSX.Element {
+const LanguagePickerMenu = createComponent<Actions>(
+    function(actions: Actions, translations: Translations): JSX.Element {
         return <Menu
                 anchorEl={actions.languageMenu.actions.getMenuAnchorElement()!}
                 open={actions.languageMenu.actions.isOpen()}
