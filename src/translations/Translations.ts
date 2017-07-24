@@ -10,6 +10,7 @@ interface Translations {
     inputLabel: {
         email: string;
         password: string;
+        userPassword: string;
         confirmPassword: string;
     },
     order: string;

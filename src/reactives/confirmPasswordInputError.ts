@@ -7,6 +7,8 @@ import InputErrors from "./../validators/InputErrors";
 interface TextInputError {
     onBlur: () => void;
 
+    confirmPassword: () => void;
+
     isInvalid: () => boolean;
 
     reset: () => void;
@@ -18,18 +20,44 @@ interface TextInputError {
 
 interface Externals {
     inputValue: (value: () => string) => void;
+
+    passwordValue: (value: () => string) => void;
+
+    isPasswordValid: (isValid: () => boolean) => void;
 }
 
 type TextInputErrorActions = Actions<TextInputError>;
 
-function textInputError(validate: (value: () => string) => InputErrors): Reactivity<TextInputError, Externals> {
+function textInputError(): Reactivity<TextInputError, Externals> {
     const error = new ReactiveProperty<InputErrors>(InputErrors.valid);
 
     let inputValue: () => string;
 
+    let passwordValue: () => string;
+
+    let isPasswordValid: () => boolean;
+
     return reactivityCreator(error, {
         onBlur: function(): void {
-            error.value = validate(inputValue);
+            const value = inputValue();
+            if(value.length === 0) {
+                error.value = InputErrors.required;
+                return;
+            }
+            if(isPasswordValid()) {
+                error.value = value === passwordValue()
+                            ? InputErrors.valid
+                            : InputErrors.confirmPassword;
+            }
+        },
+
+        confirmPassword: function(): void {
+            const value = inputValue();
+            if((value.length > 0) && isPasswordValid()) {
+                error.value = value === passwordValue()
+                            ? InputErrors.valid
+                            : InputErrors.confirmPassword;
+            }
         },
 
         isInvalid: function(): boolean {
@@ -51,6 +79,14 @@ function textInputError(validate: (value: () => string) => InputErrors): Reactiv
     {
         inputValue: function(value: () => string): void {
             inputValue = value;
+        },
+
+        passwordValue: function(value: () => string): void {
+            passwordValue = value;
+        },
+
+        isPasswordValid: function(isValid: () => boolean): void {
+            isPasswordValid = isValid;
         }
     });
 }

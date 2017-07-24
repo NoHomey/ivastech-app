@@ -17,6 +17,7 @@ const bg: Translations = {
     inputLabel: {
         email: "Електронна поща",
         password: "Парола",
+        userPassword: "Парола",
         confirmPassword: "Потвърди паролата"
     },
     order: "Поръчай",

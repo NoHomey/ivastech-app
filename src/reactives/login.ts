@@ -33,7 +33,7 @@ function login(): Reactivity<Login, Externals> {
 
     function isLoginFormInvalid(): boolean {
         return storeActions.emailError.actions.isInvalid()
-            && storeActions.passwordError.actions.isInvalid();
+            || storeActions.passwordError.actions.isInvalid();
     }
 
     return reactivityCreator(loginAction, {

@@ -1,7 +1,8 @@
 enum InputErrors {
     valid,
     required,
-    email
+    email,
+    confirmPassword
 }
 
 export default InputErrors;

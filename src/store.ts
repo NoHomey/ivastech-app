@@ -4,6 +4,8 @@ import open from "./reactives/openReactive";
 import textInput from "./reactives/textInput";
 import textInputError from "./reactives/textInputError";
 import login from "./reactives/login";
+import confirmPasswordInputError from "./reactives/confirmPasswordInputError";
+import register from "./reactives/register";
 
 import emailValidator from "./validators/email";
 import passwordValidator from "./validators/password";
@@ -18,12 +20,18 @@ const store = {
     emailError: textInputError(emailValidator),
     passwordInput: textInput(),
     passwordError: textInputError(passwordValidator),
-    login: login()
+    login: login(),
+    userPasswordInput: textInput(),
+    userPasswordError: textInputError(passwordValidator),
+    confirmPasswordInput: textInput(),
+    confirmPasswordError: confirmPasswordInputError(),
+    register: register()
 };
 
 type StoreKey = "language" | "languageMenu" | "sideNav" | "loginDialog"
     | "registerDialog" | "emailInput" | "emailError" | "passwordInput"
-    | "passwordError" | "login";
+    | "passwordError" | "login" | "userPasswordInput" | "userPasswordError"
+    | "confirmPasswordInput" | "confirmPasswordError";
 
 store.language.reactivity.subscribe({
     forceUpdate: store.languageMenu.actions.ensureClose
@@ -38,6 +46,33 @@ store.passwordError.externals!.inputValue(
 );
 
 store.login.externals!.store(store);
+
+store.userPasswordError.externals!.inputValue(
+    store.userPasswordInput.actions.value
+);
+
+store.confirmPasswordError.externals!.inputValue(
+    store.confirmPasswordInput.actions.value
+);
+
+store.confirmPasswordError.externals!.passwordValue(
+    store.userPasswordInput.actions.value
+);
+
+store.confirmPasswordError.externals!.isPasswordValid(
+    function(): boolean {
+        return !store.userPasswordError.actions.isInvalid();
+    }
+);
+
+const onUserPasswordBlur = store.userPasswordError.actions.onBlur;
+
+store.userPasswordError.actions.onBlur = function(): void {
+    onUserPasswordBlur();
+    store.confirmPasswordError.actions.confirmPassword();
+}
+
+store.register.externals!.store(store);
 
 export {StoreKey}
 

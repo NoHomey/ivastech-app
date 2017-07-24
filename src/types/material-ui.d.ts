@@ -457,7 +457,7 @@ declare namespace MaterialUI {
 
         rowsMax?: string | number;
 
-        type?: "button" | "checkbox" | "color" | "date" | "datetime-local" | "email" | "file" | "hidden" | "image" | "number" | "password" | "radio" | "range";
+        type?: "text" | "button" | "checkbox" | "color" | "date" | "datetime-local" | "email" | "file" | "hidden" | "image" | "number" | "password" | "radio" | "range";
 
         value?: string | number;
 

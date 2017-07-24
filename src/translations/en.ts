@@ -17,6 +17,7 @@ const en: Translations = {
     inputLabel: {
         email: "Email address",
         password: "Password",
+        userPassword: "Password",
         confirmPassword: "Confirm Password"
     },
     order: "Order",

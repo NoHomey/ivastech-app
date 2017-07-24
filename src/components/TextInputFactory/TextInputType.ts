@@ -1,3 +1,3 @@
-type TextInputType = "email" | "password" | "confirmPassword";
+type TextInputType = "email" | "password" | "userPassword" | "confirmPassword";
 
 export default TextInputType;
