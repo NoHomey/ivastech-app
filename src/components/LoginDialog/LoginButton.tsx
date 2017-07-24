@@ -2,18 +2,18 @@ import * as React from "react";
 import Button from "material-ui/Button";
 import createComponent from "./../../createComponent"
 import Translations from "./../../translations/Translations";
-import {LoginActions} from "./../../reactives/login";
+import {DialogFormActions} from "./../../reactives/dialogForm";
 
 interface Actions {
-    login: LoginActions;
+    login: DialogFormActions;
 }
 
 const LoginDialog = createComponent<Actions>(
     function(actions: Actions, translations: Translations): JSX.Element {
         return <Button
                 color="primary"
-                disabled={actions.login.actions.isLoginFormInvalid()}
-                onClick={actions.login.actions.login}>
+                disabled={actions.login.actions.isFormInvalid()}
+                onClick={actions.login.actions.submit}>
             {translations.login}
         </Button>;
     }, ["emailError", "passwordError"]

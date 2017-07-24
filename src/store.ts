@@ -3,9 +3,8 @@ import languageMenu from "./reactives/languageMenu";
 import open from "./reactives/openReactive";
 import textInput from "./reactives/textInput";
 import textInputError from "./reactives/textInputError";
-import login from "./reactives/login";
 import confirmPasswordInputError from "./reactives/confirmPasswordInputError";
-import register from "./reactives/register";
+import dialogForm from "./reactives/dialogForm";
 
 import emailValidator from "./validators/email";
 import passwordValidator from "./validators/password";
@@ -20,12 +19,12 @@ const store = {
     emailError: textInputError(emailValidator),
     passwordInput: textInput(),
     passwordError: textInputError(passwordValidator),
-    login: login(),
+    login: dialogForm(),
     userPasswordInput: textInput(),
     userPasswordError: textInputError(passwordValidator),
     confirmPasswordInput: textInput(),
     confirmPasswordError: confirmPasswordInputError(),
-    register: register()
+    register: dialogForm()
 };
 
 type StoreKey = "language" | "languageMenu" | "sideNav" | "loginDialog"
@@ -45,7 +44,11 @@ store.passwordError.externals!.inputValue(
     store.passwordInput.actions.value
 );
 
-store.login.externals!.store(store);
+store.login.externals!.form(
+    store.loginDialog,
+    [store.emailInput, store.passwordInput],
+    [store.emailError, store.passwordError]
+);
 
 store.userPasswordError.externals!.inputValue(
     store.userPasswordInput.actions.value
@@ -72,7 +75,11 @@ store.userPasswordError.actions.onBlur = function(): void {
     store.confirmPasswordError.actions.confirmPassword();
 }
 
-store.register.externals!.store(store);
+store.register.externals!.form(
+    store.registerDialog,
+    [store.emailInput, store.userPasswordInput, store.confirmPasswordInput],
+    [store.emailError, store.userPasswordError, store.confirmPasswordError]
+);
 
 export {StoreKey}
 
