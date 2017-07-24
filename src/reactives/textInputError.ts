@@ -14,6 +14,10 @@ interface TextInputError {
     error: () => InputErrors;
 
     onFocus: () => void;
+
+    lock: () => void;
+
+    unlock: () => void;
 }
 
 interface Externals {
@@ -24,6 +28,8 @@ type TextInputErrorActions = Actions<TextInputError>;
 
 function textInputError(validate: (value: () => string) => InputErrors): Reactivity<TextInputError, Externals> {
     const error = new ReactiveProperty<InputErrors>(InputErrors.valid);
+
+    let lock: boolean = false;
 
     let inputValue: () => string;
 
@@ -37,7 +43,9 @@ function textInputError(validate: (value: () => string) => InputErrors): Reactiv
         },
 
         reset: function(): void {
-            error.set(InputErrors.valid);
+            if(!lock) {
+                error.set(InputErrors.valid);
+            }
         },
 
         error: function(): InputErrors {
@@ -45,7 +53,18 @@ function textInputError(validate: (value: () => string) => InputErrors): Reactiv
         },
 
         onFocus: function(): void {
-            error.value = InputErrors.valid;
+            if(!lock) {
+                error.value = InputErrors.valid;
+            }
+        },
+
+        lock: function(): void {
+            lock = true;
+            error.value = validate(inputValue);
+        },
+
+        unlock: function(): void {
+            lock = false;
         }
     },
     {

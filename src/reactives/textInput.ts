@@ -15,6 +15,10 @@ interface TextInput {
     reset: () => void;
 
     value: () => string;
+
+    lock: () => void;
+
+    unlock: () => void;
 }
 
 type TextInputActions = Actions<TextInput>;
@@ -22,17 +26,31 @@ type TextInputActions = Actions<TextInput>;
 function textInput(): Reactivity<TextInput> {
     const input = new ReactiveProperty<string>("");
 
+    let lock: boolean = false;
+
     return reactivityCreator(input, {
         onChange: function(event: InputEvent): void {
-            input.value = event.currentTarget.value;
+            if(!lock) {
+                input.value = event.currentTarget.value;
+            }
         },
 
         reset: function(): void {
-            input.set("");
+            if(!lock) {
+                input.set("");
+            }
         },
 
         value: function(): string {
             return input.value;
+        },
+
+        lock: function(): void {
+            lock = true;
+        },
+
+        unlock: function(): void {
+            lock = false;
         }
     });
 }

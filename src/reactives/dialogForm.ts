@@ -38,15 +38,21 @@ function dialogForm(): Reactivity<DialogForm, Externals> {
         return false;
     }
 
-    function blur(): void {
-        for(let i = 0; i < errors.length; ++i) {
-            errors[i].actions.onBlur();
-        }
-    }
-
     function reset(resetables: Array<{actions: {reset: () => void}}>): void {
         for(let i = 0; i < resetables.length; ++i) {
             resetables[i].actions.reset();
+        }
+    }
+
+    function lock(lockables: Array<{actions: {lock: () => void}}>): void {
+        for(let i = 0; i < lockables.length; ++i) {
+            lockables[i].actions.lock();
+        }
+    }
+
+    function unlock(unlockables: Array<{actions: {unlock: () => void}}>): void {
+        for(let i = 0; i < unlockables.length; ++i) {
+            unlockables[i].actions.unlock();
         }
     }
 
@@ -54,10 +60,13 @@ function dialogForm(): Reactivity<DialogForm, Externals> {
         isFormInvalid: isFormInvalid,
 
         submit: function(): void {
-            blur();
+            lock(inputs);
+            lock(errors);
             if(!isFormInvalid()) {
                 dialog.actions.close();
             }
+            unlock(errors);
+            unlock(inputs);
         }
     }, {
         form: function(

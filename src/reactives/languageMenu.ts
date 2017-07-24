@@ -15,7 +15,7 @@ interface LanguageMenu {
 
     close: () => void;
 
-    ensureClose: () => void;
+    ensureClose: (callbacK: () => void) => void;
 
     isOpen: () => boolean;
 
@@ -40,9 +40,10 @@ function languageMenu(): Reactivity<LanguageMenu> {
             open.value = false;
         },
 
-        ensureClose: function(): void {
+        ensureClose: function(callbacK: () => void): void {
             menuAnchorElement = null;
             open.set(false);
+            callbacK();
         },
 
         isOpen: function(): boolean {

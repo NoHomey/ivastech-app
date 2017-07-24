@@ -16,6 +16,10 @@ interface TextInputError {
     error: () => InputErrors;
 
     onFocus: () => void;
+
+    lock: () => void;
+
+    unlock: () => void;
 }
 
 interface Externals {
@@ -31,32 +35,40 @@ type TextInputErrorActions = Actions<TextInputError>;
 function textInputError(): Reactivity<TextInputError, Externals> {
     const error = new ReactiveProperty<InputErrors>(InputErrors.valid);
 
+    let lock: boolean = false;
+
     let inputValue: () => string;
 
     let passwordValue: () => string;
 
     let isPasswordValid: () => boolean;
 
+    function validate(): void {
+        const value = inputValue();
+        if(value.length === 0) {
+            error.value = InputErrors.required;
+            return;
+        }
+        if(isPasswordValid()) {
+            error.value = value === passwordValue()
+                        ? InputErrors.valid
+                        : InputErrors.confirmPassword;
+        }
+    }
+
     return reactivityCreator(error, {
         onBlur: function(): void {
-            const value = inputValue();
-            if(value.length === 0) {
-                error.value = InputErrors.required;
-                return;
-            }
-            if(isPasswordValid()) {
-                error.value = value === passwordValue()
-                            ? InputErrors.valid
-                            : InputErrors.confirmPassword;
-            }
+            validate();
         },
 
         confirmPassword: function(): void {
-            const value = inputValue();
-            if((value.length > 0) && isPasswordValid()) {
-                error.value = value === passwordValue()
-                            ? InputErrors.valid
-                            : InputErrors.confirmPassword;
+            if(!lock) {
+                const value = inputValue();
+                if((value.length > 0) && isPasswordValid()) {
+                    error.value = value === passwordValue()
+                                ? InputErrors.valid
+                                : InputErrors.confirmPassword;
+                }
             }
         },
 
@@ -65,7 +77,9 @@ function textInputError(): Reactivity<TextInputError, Externals> {
         },
 
         reset: function(): void {
-            error.set(InputErrors.valid);
+            if(!lock) {
+                error.set(InputErrors.valid);
+            }
         },
 
         error: function(): InputErrors {
@@ -73,7 +87,18 @@ function textInputError(): Reactivity<TextInputError, Externals> {
         },
 
         onFocus: function(): void {
-            error.value = InputErrors.valid;
+            if(!lock) {
+                error.value = InputErrors.valid;
+            }
+        },
+
+        lock: function(): void {
+            lock = true;
+            validate();
+        },
+
+        unlock: function(): void {
+            lock = false;
         }
     },
     {

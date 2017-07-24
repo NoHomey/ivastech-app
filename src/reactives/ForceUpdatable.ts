@@ -1,5 +1,5 @@
 interface ForceUpdatable {
-    forceUpdate: () => void;
+    forceUpdate: (callback: () => void) => void;
 }
 
 export default ForceUpdatable;

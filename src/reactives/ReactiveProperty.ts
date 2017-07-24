@@ -1,8 +1,5 @@
 import ForceUpdatable from "./ForceUpdatable";
-
-function observe(observer: ForceUpdatable) {
-    observer.forceUpdate();
-}
+import update from "./ForceUpdateQueue";
 
 class ReactiveProperty<Type> {
     constructor(value: Type) {
@@ -22,7 +19,7 @@ class ReactiveProperty<Type> {
     }
 
     notify(): void {
-        this.observers.forEach(observe);
+        update(this.observers);
     }
     
     set(value: Type): void {
