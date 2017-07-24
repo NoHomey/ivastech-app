@@ -17,7 +17,7 @@ function InputFactory(field: TextInputType): (props: {}) => JSX.Element {
     return createComponent(
         function(actions: Actions, translations: Translations): JSX.Element {
             return <FormControl required margin="normal"
-                error={actions[fieldError].actions.isInvalid()}>
+                error={actions[fieldError].actions.displayError()}>
                     <TextInputLabel/>
                     <TextInput/>
                     <TextInputError/>

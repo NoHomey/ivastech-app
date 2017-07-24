@@ -12,11 +12,10 @@ const LoginDialog = createComponent<Actions>(
     function(actions: Actions, translations: Translations): JSX.Element {
         return <Button
                 color="primary"
-                disabled={actions.login.actions.isFormInvalid()}
                 onClick={actions.login.actions.submit}>
             {translations.login}
         </Button>;
-    }, ["emailError", "passwordError"]
+    }
 );
 
 export default LoginDialog;

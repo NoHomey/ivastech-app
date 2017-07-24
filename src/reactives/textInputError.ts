@@ -7,17 +7,15 @@ import InputErrors from "./../validators/InputErrors";
 interface TextInputError {
     onBlur: () => void;
 
+    displayError: () => boolean;
+
     isInvalid: () => boolean;
 
     reset: () => void;
 
-    error: () => InputErrors;
+    errorCode: () => InputErrors;
 
     onFocus: () => void;
-
-    lock: () => void;
-
-    unlock: () => void;
 }
 
 interface Externals {
@@ -29,42 +27,35 @@ type TextInputErrorActions = Actions<TextInputError>;
 function textInputError(validate: (value: () => string) => InputErrors): Reactivity<TextInputError, Externals> {
     const error = new ReactiveProperty<InputErrors>(InputErrors.valid);
 
-    let lock: boolean = false;
-
     let inputValue: () => string;
+
+    let isInvalid: boolean = false;
 
     return reactivityCreator(error, {
         onBlur: function(): void {
             error.value = validate(inputValue);
+            isInvalid = error.value !== InputErrors.valid;
         },
 
-        isInvalid: function(): boolean {
+        displayError: function(): boolean {
             return error.value !== InputErrors.valid;
         },
 
-        reset: function(): void {
-            if(!lock) {
-                error.set(InputErrors.valid);
-            }
+        isInvalid: function(): boolean {
+            return isInvalid;
         },
 
-        error: function(): InputErrors {
+        reset: function(): void {
+            error.set(InputErrors.valid);
+            isInvalid = false;
+        },
+
+        errorCode: function(): InputErrors {
             return error.value;
         },
 
         onFocus: function(): void {
-            if(!lock) {
-                error.value = InputErrors.valid;
-            }
-        },
-
-        lock: function(): void {
-            lock = true;
-            error.value = validate(inputValue);
-        },
-
-        unlock: function(): void {
-            lock = false;
+            error.value = InputErrors.valid;
         }
     },
     {

@@ -10,7 +10,7 @@ function TextInputErrorFactory(field: TextInputType): (props: {}) => JSX.Element
     return createComponent(
         function(actions: Actions, translations: Translations): JSX.Element {
             return <FormHelperText>
-                {translations.inputErrors[actions[fieldError].actions.error()]}
+                {translations.inputErrors[actions[fieldError].actions.errorCode()]}
             </FormHelperText>;
         }, fieldError as ReactivesKey
     );

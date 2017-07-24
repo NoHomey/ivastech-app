@@ -12,11 +12,10 @@ const RegisterDialog = createComponent<Actions>(
     function(actions: Actions, translations: Translations): JSX.Element {
         return <Button
                 color="primary"
-                disabled={actions.register.actions.isFormInvalid()}
                 onClick={actions.register.actions.submit}>
             {translations.register}
         </Button>;
-    }, ["emailError", "userPasswordError", "confirmPasswordError"]
+    }
 );
 
 export default RegisterDialog;

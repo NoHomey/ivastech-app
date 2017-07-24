@@ -4,22 +4,20 @@ import ReactiveProperty from "./ReactiveProperty";
 import Actions from "./../reactives/Actions";
 import InputErrors from "./../validators/InputErrors";
 
-interface TextInputError {
+interface ConfirmPasswordInputError {
     onBlur: () => void;
 
     confirmPassword: () => void;
+
+    displayError: () =>  boolean;
 
     isInvalid: () => boolean;
 
     reset: () => void;
 
-    error: () => InputErrors;
+    errorCode: () => InputErrors;
 
     onFocus: () => void;
-
-    lock: () => void;
-
-    unlock: () => void;
 }
 
 interface Externals {
@@ -30,12 +28,12 @@ interface Externals {
     isPasswordValid: (isValid: () => boolean) => void;
 }
 
-type TextInputErrorActions = Actions<TextInputError>;
+type ConfirmPasswordInputErrorActions = Actions<ConfirmPasswordInputError>;
 
-function textInputError(): Reactivity<TextInputError, Externals> {
+function confirmPasswordInputError(): Reactivity<ConfirmPasswordInputError, Externals> {
     const error = new ReactiveProperty<InputErrors>(InputErrors.valid);
 
-    let lock: boolean = false;
+    let isInvalid: boolean = false;
 
     let inputValue: () => string;
 
@@ -43,62 +41,53 @@ function textInputError(): Reactivity<TextInputError, Externals> {
 
     let isPasswordValid: () => boolean;
 
-    function validate(): void {
+    function validate(): InputErrors {
         const value = inputValue();
         if(value.length === 0) {
-            error.value = InputErrors.required;
-            return;
+            return InputErrors.required;
         }
         if(isPasswordValid()) {
-            error.value = value === passwordValue()
-                        ? InputErrors.valid
-                        : InputErrors.confirmPassword;
+            return value === passwordValue()
+                    ? InputErrors.valid
+                    : InputErrors.confirmPassword;
         }
+        return error.value;
     }
 
     return reactivityCreator(error, {
         onBlur: function(): void {
-            validate();
+            error.value = validate();
+            isInvalid = error.value !== InputErrors.valid;
         },
 
         confirmPassword: function(): void {
-            if(!lock) {
-                const value = inputValue();
-                if((value.length > 0) && isPasswordValid()) {
-                    error.value = value === passwordValue()
-                                ? InputErrors.valid
-                                : InputErrors.confirmPassword;
-                }
+            const value = inputValue();
+            if((value.length > 0) && isPasswordValid()) {
+                error.value = value === passwordValue()
+                            ? InputErrors.valid
+                            : InputErrors.confirmPassword;
             }
         },
 
-        isInvalid: function(): boolean {
+        displayError: function(): boolean {
             return error.value !== InputErrors.valid;
         },
 
-        reset: function(): void {
-            if(!lock) {
-                error.set(InputErrors.valid);
-            }
+        isInvalid: function(): boolean {
+            return isInvalid;
         },
 
-        error: function(): InputErrors {
+        reset: function(): void {
+            error.set(InputErrors.valid);
+            isInvalid = false;
+        },
+
+        errorCode: function(): InputErrors {
             return error.value;
         },
 
         onFocus: function(): void {
-            if(!lock) {
-                error.value = InputErrors.valid;
-            }
-        },
-
-        lock: function(): void {
-            lock = true;
-            validate();
-        },
-
-        unlock: function(): void {
-            lock = false;
+            error.value = InputErrors.valid;
         }
     },
     {
@@ -116,6 +105,6 @@ function textInputError(): Reactivity<TextInputError, Externals> {
     });
 }
 
-export {TextInputErrorActions};
+export {ConfirmPasswordInputErrorActions};
 
-export default textInputError;
+export default confirmPasswordInputError;
