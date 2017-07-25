@@ -1,6 +1,6 @@
 import * as React from "react";
 import Button from "material-ui/Button";
-import createComponent from "./../createComponent";
+import ComponentWrapper from "./ComponentWrapper";
 import Translations from "./../translations/Translations";
 import {LanguageActions} from "./../reactives/language";
 import {LanguageMenuActions} from "./../reactives/languageMenu";
@@ -11,12 +11,14 @@ interface Actions {
     languageMenu: LanguageMenuActions;
 }
 
-const LanguagePickerButton = createComponent<Actions>(
-    function(actions: Actions, translations: Translations): JSX.Element {
-        return <Button color="contrast" onClick={actions.languageMenu.actions.open}>
-            {`${translations.language}: ${actions.language.actions.languageCode()}`}
-        </Button>;
-    }
-);
+function LanguagePickerButton(actions: Actions, translations: Translations): JSX.Element {
+    return <Button color="contrast" onClick={actions.languageMenu.actions.open}>
+        {`${translations.language}: ${actions.language.actions.languageCode()}`}
+    </Button>;
+}
 
-export default LanguagePickerButton;
+function LanguagePickerButtonComponent(): JSX.Element {
+    return <ComponentWrapper component={LanguagePickerButton}/>;
+}
+
+export default LanguagePickerButtonComponent;

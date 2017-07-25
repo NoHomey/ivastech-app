@@ -12,11 +12,15 @@ interface DialogForm {
     submit: () => void;
 }
 
+interface InputActions {
+    input: TextInputActions;
+    error: TextInputErrorActions;
+}
+
 interface Externals {
     form: (
         dialogActions: OpenActions,
-        inputsActions: TextInputActions[],
-        errorsActions: TextInputErrorActions[]
+        inputs: InputActions[]
     ) => void;
 }
 
@@ -26,12 +30,11 @@ function dialogForm(): Reactivity<DialogForm, Externals> {
     const submitForm = new ReactiveProperty<null>(null);
 
     let dialog: OpenActions;
-    let inputs: TextInputActions[];
-    let errors: TextInputErrorActions[];
+    let inputs: InputActions[];
 
     function isFormInvalid(): boolean {
-        for(let i = 0; i < errors.length; ++i) {
-            if(errors[i].actions.isInvalid()) {
+        for(let i = 0; i < inputs.length; ++i) {
+            if(inputs[i].error.actions.isInvalid()) {
                 return true;
             }
         }
@@ -39,14 +42,15 @@ function dialogForm(): Reactivity<DialogForm, Externals> {
     }
 
     function blur(): void {
-        for(let i = 0; i < errors.length; ++i) {
-            errors[i].actions.onBlur();
+        for(let i = 0; i < inputs.length; ++i) {
+            inputs[i].error.actions.onBlur();
         }
     }
 
-    function reset(resetables: Array<{actions: {reset: () => void}}>): void {
-        for(let i = 0; i < resetables.length; ++i) {
-            resetables[i].actions.reset();
+    function reset(): void {
+        for(let input of inputs) {
+            input.input.actions.reset();
+            input.error.actions.reset();
         }
     }
 
@@ -62,19 +66,16 @@ function dialogForm(): Reactivity<DialogForm, Externals> {
     }, {
         form: function(
             dialogActions: OpenActions,
-            inputsActions: TextInputActions[],
-            errorsActions: TextInputErrorActions[]
+            inputsActions: InputActions[]
         ): void {
             const {close} = dialogActions.actions;
 
             dialog = dialogActions;
             inputs = inputsActions;
-            errors = errorsActions;
 
             dialog.actions.close = function(): void {
                 close();
-                reset(inputs);
-                reset(errors);
+                reset();
             }
         }
     });

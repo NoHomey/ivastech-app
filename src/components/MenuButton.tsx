@@ -1,20 +1,21 @@
 import * as React from "react";
 import IconButton from "material-ui/IconButton";
 import MenuIcon from "material-ui-icons/Menu";
-import createComponent from "./../createComponent";
+import ComponentWrapper from "./ComponentWrapper";
 import {OpenActions} from "./../reactives/openReactive";
 
 interface Actions {
     sideNav: OpenActions;
 }
 
-const MenuButton = createComponent<Actions>(
-    function(actions: 
-        Actions): JSX.Element {
-        return <IconButton color="contrast" onClick={actions.sideNav.actions.open}>
-            <MenuIcon/>
-        </IconButton>;
-    }, undefined, false
-)
+function MenuButton(actions: Actions): JSX.Element {
+    return <IconButton color="contrast" onClick={actions.sideNav.actions.open}>
+        <MenuIcon/>
+    </IconButton>;
+}
 
-export default MenuButton;
+function MenuButtonComponent(): JSX.Element {
+    return <ComponentWrapper component={MenuButton} shouldUpdate={false}/>;
+}
+
+export default MenuButtonComponent;

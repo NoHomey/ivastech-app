@@ -12,7 +12,7 @@ import ChangeEmailIcon from "material-ui-icons/Email";
 import LogoutIcon from "material-ui-icons/ExitToApp";
 import Toolbar from "material-ui/Toolbar";
 import Logo from "./Logo";
-import createComponent from "./../createComponent";
+import ComponentWrapper from "./ComponentWrapper";
 import Translations from "./../translations/Translations";
 import {OpenActions} from "./../reactives/openReactive";
 
@@ -42,32 +42,34 @@ function SideNavItem(props: SideNavItemProps): JSX.Element {
         </ListItem>;
 }
 
-const SideNav = createComponent<Actions>(
-    function(actions: Actions, translations: Translations): JSX.Element {
-        return <Drawer
-            anchor="left" docked={false}
-            open={actions.sideNav.actions.isOpen()}
-            onRequestClose={actions.sideNav.actions.close}>
-            <div>
-                <Toolbar>
-                    <Logo color="secondary"/>
-                </Toolbar>
-                <Divider/>
-                <List style={style.list} disablePadding>
-                    <SideNavItem icon={<OrderIcon/>} text={translations.order}/>
-                    <SideNavItem icon={<OrdersIcon/>} text={translations.orders}/>
-                    <SideNavItem icon={<TemplatesIcon/>} text={translations.templates}/>
-                    <SideNavItem icon={<AddresessIcon/>} text={translations.addresses}/>
-                </List>
-                <Divider/>
-                <List style={style.list} disablePadding>
-                    <SideNavItem icon={<ChangePasswordIcon/>} text={translations.changePassword}/>
-                    <SideNavItem icon={<ChangeEmailIcon/>} text={translations.changeEmail}/>
-                    <SideNavItem icon={<LogoutIcon/>} text={translations.logout}/>
-                </List>
-            </div>
-        </Drawer>;
-    }, "sideNav"
-)
+function SideNav(actions: Actions, translations: Translations): JSX.Element {
+    return <Drawer
+        anchor="left" docked={false}
+        open={actions.sideNav.actions.isOpen()}
+        onRequestClose={actions.sideNav.actions.close}>
+        <div>
+            <Toolbar>
+                <Logo color="secondary"/>
+            </Toolbar>
+            <Divider/>
+            <List style={style.list} disablePadding>
+                <SideNavItem icon={<OrderIcon/>} text={translations.order}/>
+                <SideNavItem icon={<OrdersIcon/>} text={translations.orders}/>
+                <SideNavItem icon={<TemplatesIcon/>} text={translations.templates}/>
+                <SideNavItem icon={<AddresessIcon/>} text={translations.addresses}/>
+            </List>
+            <Divider/>
+            <List style={style.list} disablePadding>
+                <SideNavItem icon={<ChangePasswordIcon/>} text={translations.changePassword}/>
+                <SideNavItem icon={<ChangeEmailIcon/>} text={translations.changeEmail}/>
+                <SideNavItem icon={<LogoutIcon/>} text={translations.logout}/>
+            </List>
+        </div>
+    </Drawer>;
+}
 
-export default SideNav;
+function SideNavComponent(): JSX.Element {
+    return <ComponentWrapper component={SideNav} reactives="sideNav"/>;
+}
+
+export default SideNavComponent;

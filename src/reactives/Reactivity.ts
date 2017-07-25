@@ -1,13 +1,9 @@
-import ForceUpdatable from "./ForceUpdatable";
+import ForceUpdatableReactivity from "./ForceUpdatableReactivity";
 
 interface Reactivity<Actions, Externals = {}> {
     actions: Actions;
 
-    reactivity: {
-        subscribe: (observer: ForceUpdatable) => void;
-
-        unsubscribe: (observer: ForceUpdatable) => void;
-    };
+    reactivity: ForceUpdatableReactivity;
 
     externals?: Externals;
 }
