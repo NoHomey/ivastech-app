@@ -5,11 +5,13 @@ import LoginDialog from "./LoginDialog";
 import RegisterDialog from "./RegisterDialog";
 import SideNav from "./SideNav";
 import ChangePasswordDialog from "./ChangePasswordDialog";
+import AppContent from "./AppContent";
 import ComponentWrapper from "./ComponentWrapper";
 
 function App(): JSX.Element {
     return <div>
         <AppBar/>
+        <AppContent/>
         <LanguagePickerMenu/>
         <LoginDialog/>
         <RegisterDialog/>

@@ -29,7 +29,18 @@ const bg: Translations = {
     addresses: "Адреси",
     changePassword: "Промяна на парола",
     changeEmail: "Промяна на ел. поща",
-    logout: "Изход"
+    logout: "Изход",
+    addNew: "Добави",
+    name: "Име",
+    info: "Информация",
+    edit: "Редактирай",
+    delete: "Изтрий",
+    page: "Страница",
+    id: "ID",
+    orderDate: "Дата на поръчка",
+    delivaryDate: "Дата на доставка",
+    price: "Цена",
+    status: "Статус"
 };
 
 export default bg;

@@ -40,3 +40,78 @@ declare module "material-ui-icons/VpnKey" {
     class VpnKey extends MaterialUI.SvgIcon { }
     export default VpnKey;
 }
+
+declare module "material-ui-icons/Add" {
+    class Add extends MaterialUI.SvgIcon { }
+    export default Add;
+}
+
+declare module "material-ui-icons/PlaylistAdd" {
+    class PlaylistAdd extends MaterialUI.SvgIcon { }
+    export default PlaylistAdd;
+}
+
+declare module "material-ui-icons/Delete" {
+    class Delete extends MaterialUI.SvgIcon { }
+    export default Delete;
+}
+
+declare module "material-ui-icons/Edit" {
+    class Edit extends MaterialUI.SvgIcon { }
+    export default Edit;
+}
+
+declare module "material-ui-icons/Info" {
+    class Info extends MaterialUI.SvgIcon { }
+    export default Info;
+}
+
+declare module "material-ui-icons/InfoOutline" {
+    class InfoOutline extends MaterialUI.SvgIcon { }
+    export default InfoOutline;
+}
+
+declare module "material-ui-icons/NavigateBefore" {
+    class NavigateBefore extends MaterialUI.SvgIcon { }
+    export default NavigateBefore;
+}
+
+declare module "material-ui-icons/NavigateNext" {
+    class NavigateNext extends MaterialUI.SvgIcon { }
+    export default NavigateNext;
+}
+
+declare module "material-ui-icons/Schedule" {
+    class Schedule extends MaterialUI.SvgIcon { }
+    export default Schedule;
+}
+
+declare module "material-ui-icons/Payment" {
+    class Payment extends MaterialUI.SvgIcon { }
+    export default Payment;
+}
+
+declare module "material-ui-icons/EventAvailable" {
+    class EventAvailable extends MaterialUI.SvgIcon { }
+    export default EventAvailable;
+}
+
+declare module "material-ui-icons/LocalShipping" {
+    class LocalShipping extends MaterialUI.SvgIcon { }
+    export default LocalShipping;
+}
+
+declare module "material-ui-icons/Done" {
+    class Done extends MaterialUI.SvgIcon { }
+    export default Done;
+}
+
+declare module "material-ui-icons/DoneAll" {
+    class DoneAll extends MaterialUI.SvgIcon { }
+    export default DoneAll;
+}
+
+declare module "material-ui-icons/Cancel" {
+    class Cancel extends MaterialUI.SvgIcon { }
+    export default Cancel;
+}

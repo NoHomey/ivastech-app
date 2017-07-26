@@ -8,6 +8,7 @@ import login from "./../reactives/login";
 import dialogForm from "./../reactives/dialogForm";
 import emailValidator from "./../validators/email";
 import passwordValidator from "./../validators/password";
+import router from "./../reactives/router";
 
 const store = {
     language: language(),
@@ -34,7 +35,8 @@ const store = {
     },
     login: login(),
     register: dialogForm(),
-    changePassword: dialogForm()
+    changePassword: dialogForm(),
+    router: router()
 };
 
 store.language.reactivity.subscribe({
@@ -95,5 +97,16 @@ store.changePassword.externals!.form(
     store.changePasswordDialog,
     [store.password, store.userPassword, store.confirmPassword]
 );
+
+store.login.reactivity.subscribe({
+    forceUpdate: function(callback: () => void): void {
+        if(store.login.actions.isUserLoggedIn()) {
+            store.router.actions.navigateToOrders();
+        } else {
+            store.router.actions.navigateToHome();
+        }
+        callback();
+    }
+});
 
 export default store;

@@ -133,6 +133,21 @@ declare module "material-ui/IconButton" {
     export default IconButton;
 }
 
+declare module "material-ui/Table" {
+    import Table = MaterialUI.Table;
+    export import TableBody = MaterialUI.TableBody;
+    export import TableCell = MaterialUI.TableCell;
+    export import TableHead = MaterialUI.TableHead;
+    export import TableRow = MaterialUI.TableRow;
+    export import TableSortLable = MaterialUI.TableSortLable
+    export default Table;
+}
+
+declare module "material-ui/MobileStepper" {
+    import MobileStepper = MaterialUI.MobileStepper;
+    export default MobileStepper;
+}
+
 declare module "material-ui/styles" {
     export import MuiThemeProvider = MaterialUI.MuiThemeProvider;
 }
@@ -495,7 +510,7 @@ declare namespace MaterialUI {
 
         elevation?: ElevationProp;
 
-        suqare?: boolean;
+        square?   : boolean;
 
         style?: CSS;
     }
@@ -659,7 +674,7 @@ declare namespace MaterialUI {
     export class SvgIcon extends React.Component<SvgIconProps> { }
 
     export interface MaterialUIIconButtonProps {
-        color?: "default" | "inherit" | "contrast" | "accent";
+        color?: "default" | "inherit" | "primary" | "contrast" | "accent";
 
         disableRipple?: boolean;
 
@@ -673,6 +688,76 @@ declare namespace MaterialUI {
     export type IconButtonProps = MaterialUIIconButtonProps & React.InputHTMLAttributes<HTMLButtonElement>;
 
     export class IconButton extends React.Component<IconButtonProps> { }
+
+    export interface Style {
+        style?: CSS;
+    }
+
+    export interface TableRowProps {
+        hover?: boolean;
+
+        selected?: boolean;
+
+        style?: CSS;
+    }
+
+    export class TableRow extends React.Component<TableRowProps> { }
+
+    export interface TableSortLableProps {
+        active?: boolean;
+
+        direction?: "asc" | "desc";
+
+        style?: CSS;
+    }
+
+    export class TableSortLable extends React.Component<TableSortLableProps> { }
+
+    export class TableCellProps {
+        checkox?: boolean;
+
+        compact?: boolean;
+
+        disablePadding?: boolean;
+
+        numeric?: boolean;
+
+        style?: CSS;
+    }
+
+    export class TableCell extends React.Component<TableCellProps> { }
+
+    export class TableHead extends React.Component<Style> { }
+
+    export class TableBody extends React.Component<Style> { }
+
+    export class Table extends React.Component<Style> { }
+
+    export interface MobileStepperProps {
+        activeStep: number;
+
+        backButtonText?: React.ReactNode;
+
+        disableBack?: boolean;
+
+        disableNext?: boolean;
+
+        nextButtonText?: React.ReactNode;
+
+        onBack?: () => void;
+
+        onNext?: () => void;
+
+        position?: "bottom" | "top" | "static";
+
+        steps: number;
+
+        type?: "text" | "dots" | "progress"
+
+        style?: CSS;
+    }
+
+    export class MobileStepper extends React.Component<MobileStepperProps> { }
 
     export class MuiThemeProvider extends React.Component { }
 }

@@ -29,7 +29,18 @@ const en: Translations = {
     addresses: "Addresses",
     changePassword: "Change Password",
     changeEmail: "Change Email",
-    logout: "Logout"
+    logout: "Logout",
+    addNew: "Add new",
+    name: "Name",
+    info: "Info",
+    edit: "Edit",
+    delete: "Delete",
+    page: "Page",
+    id: "ID",
+    orderDate: "Order Date",
+    delivaryDate: "Delivary Date",
+    price: "Price",
+    status: "Status"
 };
 
 export default en;

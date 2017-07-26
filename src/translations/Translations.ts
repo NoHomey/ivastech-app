@@ -23,6 +23,17 @@ interface Translations {
     changePassword: string;
     changeEmail: string;
     logout: string;
+    addNew: string;
+    name: string;
+    info: string;
+    edit: string;
+    delete: string;
+    page: string;
+    id: string;
+    orderDate: string;
+    delivaryDate: string;
+    price: string;
+    status: string;
 }
 
 export default Translations;
