@@ -1,9 +1,12 @@
 import Reactivity from "./Reactivity";
 import ReactiveProperty from "./ReactiveProperty";
 import ForceUpdatable from "./ForceUpdatable";
+import Nullable from "./../types/Nullable";
+
+function NOP(observer: ForceUpdatable): void { }
 
 function reactivityCreator<Type, Actions, Externals = {}>(
-        property: ReactiveProperty<Type>,
+        property: Nullable<ReactiveProperty<Type>>,
         actions: Actions,
         externals?: Externals
 ): Reactivity<Actions, Externals> {
@@ -11,13 +14,13 @@ function reactivityCreator<Type, Actions, Externals = {}>(
         actions: actions,
 
         reactivity: {
-            subscribe: function(observer: ForceUpdatable): void {
+            subscribe: property !== null ? function(observer: ForceUpdatable): void {
                 property.subscribe(observer);
-            },
+            } : NOP,
                 
-            unsubscribe: function(observer: ForceUpdatable): void {
+            unsubscribe: property !== null ? function(observer: ForceUpdatable): void {
                 property.unsubscribe(observer);
-            }
+            } : NOP
         },
 
         externals: externals

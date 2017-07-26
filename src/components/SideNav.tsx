@@ -15,9 +15,14 @@ import Logo from "./Logo";
 import ComponentWrapper from "./ComponentWrapper";
 import Translations from "./../translations/Translations";
 import {OpenActions} from "./../reactives/openReactive";
+import {LoginActions} from "./../reactives/login";
 
 interface Actions {
     sideNav: OpenActions;
+
+    login: LoginActions;
+
+    changePasswordDialog: OpenActions;
 }
 
 interface SideNavItemProps {
@@ -60,9 +65,15 @@ function SideNav(actions: Actions, translations: Translations): JSX.Element {
             </List>
             <Divider/>
             <List style={style.list} disablePadding>
-                <SideNavItem icon={<ChangePasswordIcon/>} text={translations.changePassword}/>
+                <SideNavItem
+                    icon={<ChangePasswordIcon/>}
+                    text={translations.changePassword}
+                    onClick={actions.changePasswordDialog.actions.open}/>
                 <SideNavItem icon={<ChangeEmailIcon/>} text={translations.changeEmail}/>
-                <SideNavItem icon={<LogoutIcon/>} text={translations.logout}/>
+                <SideNavItem
+                    icon={<LogoutIcon/>}
+                    text={translations.logout}
+                    onClick={actions.login.actions.logout}/>
             </List>
         </div>
     </Drawer>;

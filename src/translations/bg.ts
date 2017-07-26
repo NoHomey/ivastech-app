@@ -18,7 +18,10 @@ const bg: Translations = {
         email: "Електронна поща",
         password: "Парола",
         userPassword: "Парола",
-        confirmPassword: "Потвърди паролата"
+        confirmPassword: "Потвърди паролата",
+        oldPassword: "Стара парола",
+        newPassword: "Нова парола",
+        confirmNewPassword: "Потвърди новата парола"
     },
     order: "Поръчай",
     orders: "Поръчки",

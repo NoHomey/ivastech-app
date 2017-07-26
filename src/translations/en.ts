@@ -18,7 +18,10 @@ const en: Translations = {
         email: "Email address",
         password: "Password",
         userPassword: "Password",
-        confirmPassword: "Confirm Password"
+        confirmPassword: "Confirm password",
+        oldPassword: "Old password",
+        newPassword: "New password",
+        confirmNewPassword: "Confirm new password"
     },
     order: "Order",
     orders: "Orders",

@@ -5,17 +5,17 @@ import Translations from "./../../translations/Translations";
 import {FormActions} from "./../../reactives/formUtility";
 
 interface Actions {
-    register: FormActions;
+    changePassword: FormActions;
 }
 
-function RegisterButton(actions: Actions, translations: Translations): JSX.Element {
-    return <Button color="primary" onClick={actions.register.actions.submit}>
-        {translations.register}
+function ChangePasswordButton(actions: Actions, translations: Translations): JSX.Element {
+    return <Button color="primary" onClick={actions.changePassword.actions.submit}>
+        {translations.changePassword}
     </Button>;
 }
 
 function RegisterButtonComponent(): JSX.Element {
-    return <ComponentWrapper component={RegisterButton}/>;
+    return <ComponentWrapper component={ChangePasswordButton}/>;
 }
 
 export default RegisterButtonComponent;

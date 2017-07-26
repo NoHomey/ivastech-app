@@ -1,25 +1,46 @@
 import Reactivity from "./Reactivity";
 import reactivityCreator from "./reactivityCreator";
+import ReactiveProperty from "./ReactiveProperty";
+import Actions from "./../reactives/Actions";
 import {OpenActions} from "./openReactive";
 import * as formUtility from "./formUtility";
 
-function dialogForm(): Reactivity<formUtility.Form, formUtility.Externals> {
+interface Login {
+    login: () => void;
+
+    logout: () => void;
+
+    isUserLoggedIn: () => boolean;
+}
+
+type LoginActions = Actions<Login>;
+
+function login(): Reactivity<Login, formUtility.Externals> {
+    const loggedIn = new ReactiveProperty<boolean>(false);
+
     let dialog: OpenActions;
     let inputs: formUtility.InputActions[];
 
-    function isFormValid(): boolean {
+    function isLoginFormValid(): boolean {
         return formUtility.isFormInvalid(inputs);
     }
 
-    return reactivityCreator(null, {
-        isFormInvalid: isFormValid,
-
-        submit: function(): void {
+    return reactivityCreator(loggedIn, {
+        login: function(): void {
             formUtility.blurInputs(inputs);
-            if(!isFormValid()) {
+            if(!isLoginFormValid()) {
                 formUtility.resetInputs(inputs);
-                dialog.actions.close();
+                dialog.actions.ensureClose();
+                loggedIn.value = true;
             }
+        },
+
+        logout: function(): void {
+            loggedIn.value = false;
+        },
+
+        isUserLoggedIn: function(): boolean {
+            return loggedIn.value;
         }
     }, {
         form: function(
@@ -39,4 +60,6 @@ function dialogForm(): Reactivity<formUtility.Form, formUtility.Externals> {
     });
 }
 
-export default dialogForm;
+export {LoginActions}
+
+export default login;

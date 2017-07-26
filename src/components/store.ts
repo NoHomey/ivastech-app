@@ -4,8 +4,8 @@ import open from "./../reactives/openReactive";
 import textInput from "./../reactives/textInput";
 import textInputError from "./../reactives/textInputError";
 import confirmPasswordInputError from "./../reactives/confirmPasswordInputError";
+import login from "./../reactives/login";
 import dialogForm from "./../reactives/dialogForm";
-
 import emailValidator from "./../validators/email";
 import passwordValidator from "./../validators/password";
 
@@ -15,6 +15,7 @@ const store = {
     sideNav: open(),
     loginDialog: open(),
     registerDialog: open(),
+    changePasswordDialog: open(),
     email: {
         input: textInput(),
         error: textInputError(emailValidator),
@@ -31,8 +32,9 @@ const store = {
         input: textInput(),
         error: confirmPasswordInputError(),
     },
-    login: dialogForm(),
-    register: dialogForm()
+    login: login(),
+    register: dialogForm(),
+    changePassword: dialogForm()
 };
 
 store.language.reactivity.subscribe({
@@ -46,6 +48,13 @@ store.email.error.externals!.inputValue(
 store.password.error.externals!.inputValue(
     store.password.input.actions.value
 );
+
+const logoutAction = store.login.actions.logout;
+
+store.login.actions.logout = function(): void {
+    store.sideNav.actions.ensureClose();
+    logoutAction();
+}
 
 store.login.externals!.form(
     store.loginDialog,
@@ -80,6 +89,11 @@ store.userPassword.error.actions.onBlur = function(): void {
 store.register.externals!.form(
     store.registerDialog,
     [store.email, store.userPassword, store.confirmPassword]
+);
+
+store.changePassword.externals!.form(
+    store.changePasswordDialog,
+    [store.password, store.userPassword, store.confirmPassword]
 );
 
 export default store;

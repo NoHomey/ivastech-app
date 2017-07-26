@@ -12,6 +12,9 @@ interface Translations {
         password: string;
         userPassword: string;
         confirmPassword: string;
+        oldPassword: string;
+        newPassword: string;
+        confirmNewPassword: string;
     },
     order: string;
     orders: string;
