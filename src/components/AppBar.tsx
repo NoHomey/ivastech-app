@@ -17,19 +17,19 @@ interface Actions {
     login: LoginActions;
 }
 
-const style: {AppBar: CSS, Toolbar: CSS} = {
-    AppBar: {
-        width: "100%"
-    },
+const style: {Toolbar: CSS} = {
     Toolbar: {
-        minHeight: "60px"
+        minHeight: "60px",
+        marginLeft: "auto",
+        marginRight: "auto",
+        width: "76%"
     }
 };
 
 const spaceBetweeen = "space-between";
 
 function IvasTechBar(actions: Actions): JSX.Element {
-    return <AppBar position="static" style={style.AppBar}>
+    return <AppBar position="static">
         <Toolbar style={style.Toolbar}>
             {
                 actions.login.actions.isUserLoggedIn()

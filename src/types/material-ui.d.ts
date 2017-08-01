@@ -6,6 +6,11 @@ declare module "material-ui/AppBar" {
     export default AppBar;
 }
 
+declare module "material-ui/Avatar" {
+    import Avatar = MaterialUI.Avatar;
+    export default Avatar;
+}
+
 declare module "material-ui/Toolbar" {
     import Toolbar = MaterialUI.Toolbar;
     export default Toolbar;
@@ -179,6 +184,24 @@ declare namespace MaterialUI {
     }
 
     export class AppBar extends React.Component<AppBarProps> { }
+
+    export interface AvatarProps {
+        alt?: string;
+
+        component?: ComponentProp;
+
+        imgProps?: React.ImgHTMLAttributes<HTMLImageElement>;
+
+        sizes?: string;
+
+        src?: string;
+
+        srcSet?: string;
+
+        style?: CSS;
+    }
+
+    export class Avatar extends React.Component<AvatarProps> { }
 
     export interface ToolbarProps {
         disableGutters?: boolean;
@@ -795,7 +818,7 @@ declare namespace MaterialUI {
 
         indicatorColor?: "accent" | "primary" | string;
 
-        onChange: (event: any, index: number) => void;
+        onChange: (event: React.SyntheticEvent<HTMLElement>, index: number) => void;
 
         scrollButtons?: "auto" | "on" | "off";
 

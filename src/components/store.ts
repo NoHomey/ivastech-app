@@ -9,6 +9,7 @@ import dialogForm from "./../reactives/dialogForm";
 import emailValidator from "./../validators/email";
 import passwordValidator from "./../validators/password";
 import router from "./../reactives/router";
+import homeTabSwitcher from "./../reactives/homeTabSwitcher";
 
 const store = {
     language: language(),
@@ -36,7 +37,8 @@ const store = {
     login: login(),
     register: dialogForm(),
     changePassword: dialogForm(),
-    router: router()
+    router: router(),
+    homeTabSwitcher: homeTabSwitcher()
 };
 
 store.language.reactivity.subscribe({
