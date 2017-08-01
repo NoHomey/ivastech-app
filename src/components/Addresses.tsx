@@ -59,12 +59,12 @@ function Addresses(actions: {}, translations: Translations): JSX.Element {
                                     <TableCell compact>dfjkj399fdjfsf9dk</TableCell>
                                     <TableCell compact>{i}</TableCell>
                                     <TableCell compact>
-                                        <IconButton color={constants.defaultColor}>
+                                        <IconButton color={constants.primary}>
                                             <InfoIcon/>
                                         </IconButton>
                                     </TableCell>
                                     <TableCell compact>
-                                        <IconButton color={constants.primary}>
+                                        <IconButton color={constants.defaultColor}>
                                             <EditIcon/>
                                         </IconButton>
                                     </TableCell>

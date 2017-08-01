@@ -53,8 +53,8 @@ const orderStatusInfo: OrderStatusInfo[] = [
 
 const data: Array<OrderInfo | null> = [
     {
-        name: "ass33raf3rdhyv",
-        id: "nvff848fj8edh3ra",
+        name: "ass33raf3rdhyvdkfskjkskjgfdsfsfdsmkfskfksdfjksfkfkfkjgjkjg",
+        id: "nvff848fj8edh3fmkfkfjvkjxfkfbkbkbkxbkmbmbmcmbra",
         orderDate: "20.06.17",
         deliveryDate: "22.06.17",
         price: "120 лв.",

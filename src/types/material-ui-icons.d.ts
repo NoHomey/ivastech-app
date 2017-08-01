@@ -115,3 +115,28 @@ declare module "material-ui-icons/Cancel" {
     class Cancel extends MaterialUI.SvgIcon { }
     export default Cancel;
 }
+
+declare module "material-ui-icons/Phone" {
+    class Phone extends MaterialUI.SvgIcon { }
+    export default Phone;
+}
+
+declare module "material-ui-icons/PhoneAndroid" {
+    class PhoneAndroid extends MaterialUI.SvgIcon { }
+    export default PhoneAndroid;
+}
+
+declare module "material-ui-icons/Place" {
+    class Place extends MaterialUI.SvgIcon { }
+    export default Place;
+}
+
+declare module "material-ui-icons/Print" {
+    class Print extends MaterialUI.SvgIcon { }
+    export default Print;
+}
+
+declare module "material-ui-icons/RadioButtonUnchecked" {
+    class RadioButtonUnchecked extends MaterialUI.SvgIcon { }
+    export default RadioButtonUnchecked;
+}

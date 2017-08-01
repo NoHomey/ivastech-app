@@ -148,6 +148,17 @@ declare module "material-ui/MobileStepper" {
     export default MobileStepper;
 }
 
+declare module "material-ui/Tabs" {
+    import Tabs = MaterialUI.Tabs;
+    export import Tab = MaterialUI.Tab;
+    export default Tabs;
+}
+
+declare module "material-ui/Badge" {
+    import Badge = MaterialUI.Badge;
+    export default Badge;
+}
+
 declare module "material-ui/styles" {
     export import MuiThemeProvider = MaterialUI.MuiThemeProvider;
 }
@@ -758,6 +769,50 @@ declare namespace MaterialUI {
     }
 
     export class MobileStepper extends React.Component<MobileStepperProps> { }
+
+    export class TabProps {
+        disabled?: boolean;
+
+        icon?: React.ReactNode;
+
+        label?: React.ReactNode;
+
+        style?: CSS;
+    }
+
+    export class Tab extends React.Component<TabProps> { }
+
+    export class TabsProps {
+        buttonClassName?: string;
+
+        centered?: boolean;
+
+        fullWidth?: boolean;
+
+        index: number | boolean;
+
+        indicatorClassName?: string;
+
+        indicatorColor?: "accent" | "primary" | string;
+
+        onChange: (event: any, index: number) => void;
+
+        scrollButtons?: "auto" | "on" | "off";
+
+        scrollable?: boolean;
+
+        textColor?: "accent" | "primary" | "inherit" | "string";
+    }
+
+    export class Tabs extends React.Component<TabsProps> { }
+
+    export interface BadgeProps {
+        badgeContent: React.ReactNode;
+
+        color?: "default" | "primary" | "accent";
+    }
+
+    export class Badge extends React.Component<BadgeProps> { }
 
     export class MuiThemeProvider extends React.Component { }
 }
